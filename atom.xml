@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yunzaifei.github.io/"/>
-  <updated>2020-06-14T01:01:41.478Z</updated>
+  <updated>2022-05-05T03:49:04.186Z</updated>
   <id>http://yunzaifei.github.io/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker入门</title>
+    <link href="http://yunzaifei.github.io/2022/05/05/Docker%E5%85%A5%E9%97%A8/"/>
+    <id>http://yunzaifei.github.io/2022/05/05/Docker入门/</id>
+    <published>2022-05-05T03:48:36.000Z</published>
+    <updated>2022-05-05T03:49:04.186Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://yunzaifei.github.io/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="http://yunzaifei.github.io/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>GraphQL 入门</title>
@@ -501,31 +519,6 @@
       <category term="linux" scheme="http://yunzaifei.github.io/tags/linux/"/>
     
       <category term="mongodb" scheme="http://yunzaifei.github.io/tags/mongodb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux安全设置</title>
-    <link href="http://yunzaifei.github.io/2016/01/08/linux%E5%AE%89%E5%85%A8%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://yunzaifei.github.io/2016/01/08/linux安全设置/</id>
-    <published>2016-01-08T02:21:25.000Z</published>
-    <updated>2017-08-05T13:48:05.059Z</updated>
-    
-    <content type="html"><![CDATA[<p>我们在学会了VPS的安装和建站之后，肯定需要附带学习VPS的安全设置。因为VPS和主机不同，主机商可能会给我们备份，而且主机的安全性都有主机商承担。但是，如果现在我们在使用VPS，那VPS的安全性主机商是不承担的，既然我们选择使用VPS，就一定要做好安全维护。接下来就以Centos7为例进行讲解：</p><h2 id="修改SSH端口"><a href="#修改SSH端口" class="headerlink" title="修改SSH端口"></a>修改SSH端口</h2><p>不管我们的网站是不是出名，很多黑客选手或者同行都是用软件直接扫描网站VPS/主机端口的，一般的大家都知道VPS端口为22，如果我们修改了端口至少先找不到端口，很多时候由于我们的端口是默认，即便主机安全也会留下大量的日志文件。这些文件就是被暴利破解的错误记录。</p><p>修改SSH端口的方法：登陆SSH，然后通过<font color='blue'>vi /etc/ssh/sshd_config</font> 命令打开文件，修改其中的port后面的数字。<br><img src="http://i.imgur.com/evzmiBa.png" alt=""><br>最后一步就是重启ssh，需要注意的是不同版本的linux是不同的命令。</p><blockquote><p>Centos7: systemctl restart sshd</p></blockquote><p>这个时候千万不要急着关闭当前ssh连接</p><blockquote><p>因为你的VPS可能启动了防火墙，而你新设置的端口可能会被防火墙拦截</p></blockquote><p>检查防火墙是否开发，以Centos7为例：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd <span class="comment">--state</span></span><br><span class="line"><span class="comment">#如果没有开启，结果是</span></span><br><span class="line"><span class="keyword">not</span> <span class="built_in">running</span></span><br><span class="line"><span class="comment">#如果开启，结果是</span></span><br><span class="line"><span class="built_in">running</span></span><br></pre></td></tr></table></figure><br>永久开启端口：<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看开启的端口号</span></span><br><span class="line">$ firewall-cmd <span class="params">--zone=public</span> <span class="params">--list-ports</span></span><br><span class="line"><span class="comment">#添加端口号</span></span><br><span class="line">$ firewall-cmd <span class="params">--permanent</span> <span class="params">--zone=public</span> <span class="params">--add-port=</span>[端口号]<span class="string">/tcp</span></span><br><span class="line"><span class="comment">#重启firewall</span></span><br><span class="line">$ systemctl restart firewalld</span><br></pre></td></tr></table></figure></p><p>保险起见，可以再打开一个ssh连接测试，成功后就可以关闭ssh连接了。</p><h2 id="禁用root账号"><a href="#禁用root账号" class="headerlink" title="禁用root账号"></a>禁用root账号</h2><p>一般的我们使用账户登陆都直接用ROOT登陆。如果我们把ROOT账户禁用，添加一个自己知道的账户，那VPS的安全入口基本完成。至少除了猜测密码还需要猜测用户名。</p><ul><li>第一步 新建用户<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#为登录名sam产生一个主目录/usr/sam</span></span><br><span class="line">$ useradd –d <span class="regexp">/usr/</span>sam -m sam</span><br><span class="line"><span class="comment">#为用户名设置密码</span></span><br><span class="line">$ passwd sam</span><br></pre></td></tr></table></figure>然后需要输入两次密码。</li></ul><ul><li><p>第二步 设置禁止ROOT用户<br>就是我们需要设置禁止ROOT用户，这需要编译文件的。我们可以通过VI命令操作</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi <span class="regexp">/etc/</span>ssh/sshd_config</span><br></pre></td></tr></table></figure><p>和之前的设置端口一样，编译sshd_config文件，把PermitRootLogin中的YES改成NO<br><img src="http://i.imgur.com/PY5Aaco.png" alt="Imgur"><br>保存退出，重启SSH：</p><blockquote><p>Centos7: systemctl restart sshd</p></blockquote></li><li><p>第三步，提权<br>用我们新添加的用户名登陆，然后su root进行提权，让新用户有ROOT用户有的最高权限。</p></li></ul><blockquote><p>保险起见，还是应该打开一个新的ssh连接测试，成功后再关闭原来的ssh连接。</p></blockquote><h2 id="SSH禁止密码登录"><a href="#SSH禁止密码登录" class="headerlink" title="SSH禁止密码登录"></a>SSH禁止密码登录</h2><p>如果担心密码被暴力破解，可以添加SSH登录，并且禁止密码登录。这样每次登录不要输入密码，并且更安全，唯一不足的地方就是换个电脑就要重新折腾一次将本地公钥内容追加到远程主机的授权文件（authorized_keys）中。</p><ul><li>本地生成密钥对<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在本机命令行控制台输入：</span></span><br><span class="line"><span class="variable">$ </span>ssh-keygen</span><br></pre></td></tr></table></figure>此时会在系统用户的.ssh目录下生成一对密钥文件：私钥文件id_rsa和公钥文件id_rsa_pub。</li><li>将本地公钥内容追加到远程主机的授权文件（authorized_keys）中</li></ul><p>本地查看id_rsa_pub文件内容，复制得到的公钥字符串，在远程服务器上编辑authorized_keys文件<br><figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~<span class="regexp">/.ssh/</span>authorized_keys</span><br></pre></td></tr></table></figure><br>将刚刚得到的本地公钥字符串添加到该文件的末尾（如果是新建的文件就直接添加），编辑保存完成后，修改该文件的权限<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">$chmod</span> 600 .ssh/authorized_keys</span></span><br></pre></td></tr></table></figure></p><ul><li>修改ssh配置</li></ul><p>编辑远程服务器上的sshd_config文件：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$vi</span> <span class="regexp">/etc/</span>ssh/sshd_config</span><br></pre></td></tr></table></figure><br>找到如下选项并修改(通常情况下，前两项默认为no，地三项如果与此处不符，以此处为准)：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启用密钥验证</span></span><br><span class="line"><span class="string">RSAAuthentication</span> <span class="literal">yes</span></span><br><span class="line"><span class="string">PubkeyAuthentication</span> <span class="literal">yes</span></span><br><span class="line"><span class="comment">#指定公钥数据库文件</span></span><br><span class="line"><span class="string">AuthorsizedKeysFile.ssh/authorized_keys</span></span><br></pre></td></tr></table></figure><br>同时禁止密码登录<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将PasswordAuthentication yes 改为</span></span><br><span class="line"><span class="attribute">PasswordAuthentication</span> <span class="literal">no</span></span><br></pre></td></tr></table></figure><br>编辑保存完成后，重启ssh服务使得新配置生效：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>systemctl restart sshd.service</span><br></pre></td></tr></table></figure></p><h2 id="配置epel源"><a href="#配置epel源" class="headerlink" title="配置epel源"></a>配置epel源</h2><p>具体请参见：<a href="http://fedoraproject.org/wiki/EPEL">http://fedoraproject.org/wiki/EPEL</a><br>通过wget命令下载RPM文件，然后安装。<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RHEL/CentOS <span class="number">7</span></span><br><span class="line">$ wget http:<span class="regexp">//</span>dl.fedoraproject.org<span class="regexp">/pub/</span>epel/epel-release-latest-<span class="number">7</span>.noarch.rpm</span><br><span class="line">$ rpm -ivh epel-release-latest-<span class="number">7</span>.noarch.rpm</span><br></pre></td></tr></table></figure><br>如何检查epel是否安装成功？使用一下命令：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># yum repolist  </span></span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;我们在学会了VPS的安装和建站之后，肯定需要附带学习VPS的安全设置。因为VPS和主机不同，主机商可能会给我们备份，而且主机的安全性都有主机商承担。但是，如果现在我们在使用VPS，那VPS的安全性主机商是不承担的，既然我们选择使用VPS，就一定要做好安全维护。接下来就以Ce
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://yunzaifei.github.io/categories/linux/"/>
-    
-    
-      <category term="linux" scheme="http://yunzaifei.github.io/tags/linux/"/>
     
   </entry>
   
