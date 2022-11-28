@@ -1,9 +1,155 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="云在飞的技术博客，分享最新的IT技术和互联网热点内容"><meta name="keywords" content="云在飞, 技术"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><title>nodejs安装 | 云在飞的博客</title><meta name="generator" content="Hexo 5.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">nodejs安装</h1><a id="logo" href="/.">云在飞的博客</a><p class="description">如果你惟一的工具是一把锤子，你往往会把一切问题看成钉子</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">nodejs安装</h1><div class="post-meta"><a href="/2016/01/19/nodejs%E5%AE%89%E8%A3%85/#comments" class="comment-count"><i data-disqus-identifier="2016/01/19/nodejs安装/" class="disqus-comment-count"></i>留言</a><p><span class="date">Jan 19, 2016</span><span><a href="/categories/nodejs/" class="category">nodejs</a></span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。<br>nodjs官网：<a target="_blank" rel="noopener" href="https://nodejs.org">https://nodejs.org</a></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>nodejs安装 | 云在飞的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="云在飞的技术博客，分享最新的IT技术和互联网热点内容">
+  
+  
+    <meta name="keywords" content="云在飞, 技术">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="云在飞的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">云在飞的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">如果你惟一的工具是一把锤子，你往往会把一切问题看成钉子</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-nodejs安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      nodejs安装
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2016-01-19T08:02:25.000Z" itemprop="datePublished">2016年01月19日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2016/01/19/nodejs%E5%AE%89%E8%A3%85/#comments" class="article-comment-link">
+  
+    
+    
+      <i class="disqus-comment-count" data-disqus-identifier="/2016/01/19/nodejs%E5%AE%89%E8%A3%85/"></i>
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。<br>nodjs官网：<a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org</a></p>
 <h4 id="windows下安装"><a href="#windows下安装" class="headerlink" title="windows下安装"></a>windows下安装</h4><p>windows下的安装很简单，直接去官网下载安装包，下载完成后双击之后下一步直到完成。然后打开cmd命令行窗口敲入命令“node -v”，如果按照成功，就会显示对应的版本号。</p>
 <p>不过windows下虽然安装的时候能够选择nodejs的安装路径（比如为了减少C盘空间，安装在D盘），但是npm的默认路径是在C盘AppData下，如果希望npm全局安装路径，可以进行如下操作：</p>
 <ol>
-<li>假设nodejs的安装路径是<code>D:\Program Files\nodejs</code>，在此路径下建立<code>node_global</code>及<code>node_cache</code>两个文件夹。在路<code>D:\Program 
-Files\nodejs\node_modules\npm</code>下找一个名字为<code>npmrc</code>的文件，用记事本打开，修改为<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prefix = D:<span class="tag">\<span class="name">Program</span></span> Files<span class="tag">\<span class="name">nodejs</span></span><span class="tag">\<span class="name">node</span></span>_global</span><br><span class="line">cache  = D:<span class="tag">\<span class="name">Program</span></span> Files<span class="tag">\<span class="name">nodejs</span></span><span class="tag">\<span class="name">node</span></span>_cache</span><br></pre></td></tr></table></figure></li>
+<li>假设nodejs的安装路径是<code>D:\Program Files\nodejs</code>，在此路径下建立<code>node_global</code>及<code>node_cache</code>两个文件夹。在路<code>D:\Program  Files\nodejs\node_modules\npm</code>下找一个名字为<code>npmrc</code>的文件，用记事本打开，修改为<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prefix = D:<span class="symbol">\P</span>rogram Files<span class="symbol">\n</span>odejs<span class="symbol">\n</span>ode_global</span><br><span class="line">cache  = D:<span class="symbol">\P</span>rogram Files<span class="symbol">\n</span>odejs<span class="symbol">\n</span>ode_cache</span><br></pre></td></tr></table></figure></li>
 <li>修改环境变量，“我的电脑”右键“属性”-“高级系统设置”-“高级”-“环境变量”，在系统变量下新建<code>NODE_PATH</code>，输入是<code>D:\Program Files\nodejs\node_global\node_modules</code>。上面的用户变量都要跟着改变一下（用户变量“PATH”中的<code>C:\Users\&#123;用户名&#125;\AppData\Roaming</code>修改为<code>D:\Program Files\nodejs\node_global\</code>），保存修改即可。</li>
 </ol>
 <h4 id="linux下安装（以centos为例）"><a href="#linux下安装（以centos为例）" class="headerlink" title="linux下安装（以centos为例）"></a>linux下安装（以centos为例）</h4><p>linux的安装可以分为yum命令安装和源码编译安装两种</p>
@@ -20,19 +166,293 @@ Files\nodejs\node_modules\npm</code>下找一个名字为<code>npmrc</code>的�
 <li><p>nodejs官方curl命令</p>
 </li>
 </ol>
-<p>官方网址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/package-manager/">https://nodejs.org/en/download/package-manager/</a><br>在centos中执行如下命令<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装Node.js v8 LTS:</span></span><br><span class="line">curl --silent --<span class="keyword">location</span> <span class="title">https</span>://rpm.nodesource.com/setup_8.x | sudo bash -</span><br><span class="line"><span class="comment"># 安装Node.js 9:</span></span><br><span class="line">curl --silent --<span class="keyword">location</span> <span class="title">https</span>://rpm.nodesource.com/setup_9.x | sudo bash -</span><br></pre></td></tr></table></figure><br>此时如果执行“cd /etc/yum.repos.d &amp;&amp; ls”命令，可以看到一个“nodesource-el7.repo”的文件，之后就可以使用yum命令安装<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y <span class="keyword">install</span> nodejs</span><br></pre></td></tr></table></figure></p>
+<p>官方网址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/package-manager/">https://nodejs.org/en/download/package-manager/</a><br>在centos中执行如下命令</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装Node.js v8 LTS:</span></span><br><span class="line">curl --silent --<span class="keyword">location</span> <span class="title">https</span>://rpm.nodesource.com/setup_8.x | sudo bash -</span><br><span class="line"><span class="comment"># 安装Node.js 9:</span></span><br><span class="line">curl --silent --<span class="keyword">location</span> <span class="title">https</span>://rpm.nodesource.com/setup_9.x | sudo bash -</span><br></pre></td></tr></table></figure>
+<p>此时如果执行“cd /etc/yum.repos.d &amp;&amp; ls”命令，可以看到一个“nodesource-el7.repo”的文件，之后就可以使用yum命令安装</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y <span class="keyword">install</span> nodejs</span><br></pre></td></tr></table></figure>
+
+
 <h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>总得来说，还是yum命令安装最省心省力, 如果没有切换多版本的需求，可以使用官方curl命令的方式。</p>
-</div><div class="post-copyright"><blockquote><p>原文作者: yunzaifei</p><p>原文链接: <a href="http://yunzaifei.github.io/2016/01/19/nodejs安装/">http://yunzaifei.github.io/2016/01/19/nodejs安装/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"><a href="/tags/nodejs/">nodejs</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2016/05/03/mongodb3%E5%9C%A8windows%E4%B8%8A%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8/" class="pre">mongodb3在windows上安装和启动</a><a href="/2016/01/11/mongodb3%E5%9C%A8Centos7%E4%B8%8A%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8/" class="next">mongodb3在Centos7上安装和启动</a></div><div id="comments"><div id="disqus_thread"></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="toc-text">windows下安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux%E4%B8%8B%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%A5centos%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="toc-text">linux下安装（以centos为例）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/05/05/Docker%E5%85%A5%E9%97%A8/">Docker入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/14/GraphQL%E5%85%A5%E9%97%A8/">GraphQL 入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/31/Redux%E7%AE%80%E4%BB%8B/">Redux简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/21/Nextjs%E7%AE%80%E4%BB%8B/">Nextjs简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/15/Callback-Promise%E5%92%8CAsync-Await/">Callback,Promise和Async/Await</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/12/PWA%E5%AE%9E%E6%88%98%EF%BC%884%EF%BC%89%E2%80%94Notification/">PWA实战（4）—Notification</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/">PWA实战（3）—Manifest</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/12/PWA%E5%AE%9E%E6%88%98%EF%BC%882%EF%BC%89%E2%80%94Service-Wroker/">PWA实战（2）—Service Wroker</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/02/PWA%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89%E2%80%94%E6%A6%82%E8%BF%B0/">PWA实战（1）—概述</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/05/%E7%BD%91%E7%AB%99%E4%BD%BF%E7%94%A8https%EF%BC%8C%E5%85%8D%E8%B4%B9%E6%96%B9%E4%BE%BF%E7%9A%84Let-s-Encrypt%E8%AF%81%E4%B9%A6/">网站使用https，免费方便的Let's Encrypt证书</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/GraphQL/" style="font-size: 15px;">GraphQL</a> <a href="/tags/Nextjs/" style="font-size: 15px;">Nextjs</a> <a href="/tags/PWA/" style="font-size: 15px;">PWA</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/widnows/" style="font-size: 15px;">widnows</a> <a href="/tags/Redux/" style="font-size: 15px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 15px;">apidoc</a> <a href="/tags/koa/" style="font-size: 15px;">koa</a> <a href="/tags/jwt/" style="font-size: 15px;">jwt</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mongodb/" style="font-size: 15px;">mongodb</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Docker/" style="font-size: 15px;">Docker</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">7</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://yunzaifei.com/" title="yunzaifei" target="_blank">yunzaifei</a><ul></ul><a href="http://zhaowenbo.com/" title="wenbo" target="_blank">wenbo</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">yunzaifei.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a target="_blank" rel="noopener" href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create','UA-71505443-2','auto');ga('send','pageview');
-</script><script type="text/javascript" src="/js/search.json.js?v=2.0.5"></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="/js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script><script>var disqus_shortname = 'yunzaifei';
-var disqus_identifier = '2016/01/19/nodejs安装/';
-var disqus_title = 'nodejs安装';
-var disqus_url = 'http://yunzaifei.github.io/2016/01/19/nodejs安装/';
-(function() {
-  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//yunzaifei.disqus.com/count.js" async></script><script type="text/javascript" src="//yunzaifei.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></body></html>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="toc-text">windows下安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux%E4%B8%8B%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%A5centos%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="toc-text">linux下安装（以centos为例）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yunzaifei.github.io/2016/01/19/nodejs安装/">http://yunzaifei.github.io/2016/01/19/nodejs安装/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2016/01/11/mongodb3%E5%9C%A8Centos7%E4%B8%8A%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          mongodb3在Centos7上安装和启动
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/03/mongodb3%E5%9C%A8windows%E4%B8%8A%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          mongodb3在windows上安装和启动
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+  <div id="comments"><div id="disqus_thread"></div></div>
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/05/05/Docker%E5%85%A5%E9%97%A8/">Docker入门</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/14/GraphQL%E5%85%A5%E9%97%A8/">GraphQL 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/31/Redux%E7%AE%80%E4%BB%8B/">Redux简介</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/21/Nextjs%E7%AE%80%E4%BB%8B/">Nextjs简介</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/15/Callback-Promise%E5%92%8CAsync-Await/">Callback,Promise和Async/Await</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mongodb/" style="font-size: 15px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/widnows/" style="font-size: 15px;">widnows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://yunzaifei.com/">yunzaifei</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://zhaowenbo.com/">wenbo</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 yunzaifei.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+    <script>
+      var disqus_shortname = 'yunzaifei';
+      
+        var disqus_url = 'http://yunzaifei.github.io/2016/01/19/nodejs%E5%AE%89%E8%A3%85/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

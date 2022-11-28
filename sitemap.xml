@@ -44,14 +44,7 @@
   </url>
   
   <url>
-    <loc>http://yunzaifei.github.io/2018/09/12/PWA%E5%AE%9E%E6%88%98%EF%BC%884%EF%BC%89%E2%80%94Notification/</loc>
-    
-    <lastmod>2018-10-31</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yunzaifei.github.io/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/</loc>
+    <loc>http://yunzaifei.github.io/2018/07/02/PWA%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89%E2%80%94%E6%A6%82%E8%BF%B0/</loc>
     
     <lastmod>2018-10-31</lastmod>
     
@@ -65,7 +58,14 @@
   </url>
   
   <url>
-    <loc>http://yunzaifei.github.io/2018/07/02/PWA%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89%E2%80%94%E6%A6%82%E8%BF%B0/</loc>
+    <loc>http://yunzaifei.github.io/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/</loc>
+    
+    <lastmod>2018-10-31</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yunzaifei.github.io/2018/09/12/PWA%E5%AE%9E%E6%88%98%EF%BC%884%EF%BC%89%E2%80%94Notification/</loc>
     
     <lastmod>2018-10-31</lastmod>
     
@@ -170,6 +170,13 @@
     <priority>1.0</priority>
   </url>
 
+  
+  <url>
+    <loc>http://yunzaifei.github.io/tags/Docker/</loc>
+    <lastmod>2022-11-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/javascript/</loc>
@@ -283,14 +290,14 @@
     <priority>0.6</priority>
   </url>
   
+
+  
   <url>
-    <loc>http://yunzaifei.github.io/tags/Docker/</loc>
+    <loc>http://yunzaifei.github.io/categories/Docker/</loc>
     <lastmod>2022-11-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
-  
-
   
   <url>
     <loc>http://yunzaifei.github.io/categories/javascript/</loc>
@@ -378,13 +385,6 @@
   
   <url>
     <loc>http://yunzaifei.github.io/categories/Git/</loc>
-    <lastmod>2022-11-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yunzaifei.github.io/categories/Docker/</loc>
     <lastmod>2022-11-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
