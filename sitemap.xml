@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yunzaifei.github.io/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/</loc>
+    
+    <lastmod>2022-12-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yunzaifei.github.io/2022/05/05/Docker%E5%85%A5%E9%97%A8/</loc>
     
     <lastmod>2022-05-30</lastmod>
@@ -211,7 +220,7 @@
 
   <url>
     <loc>http://yunzaifei.github.io/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -219,119 +228,140 @@
   
   <url>
     <loc>http://yunzaifei.github.io/tags/Docker/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/javascript/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/GraphQL/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/Nextjs/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/PWA/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/redis/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/widnows/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/Redux/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/apidoc/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/koa/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/jwt/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/linux/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/mongodb/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/Nginx/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/nodejs/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/Hexo/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/tags/Git/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yunzaifei.github.io/tags/typescript/</loc>
+    <lastmod>2022-12-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yunzaifei.github.io/tags/eslint/</loc>
+    <lastmod>2022-12-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yunzaifei.github.io/tags/prettier/</loc>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -340,98 +370,98 @@
   
   <url>
     <loc>http://yunzaifei.github.io/categories/Docker/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/javascript/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/GraphQL/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/Nextjs/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/PWA/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/redis/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/Redux/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/api/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/nodejs/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/linux/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/mongodb/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/Nginx/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/Hexo/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://yunzaifei.github.io/categories/Git/</loc>
-    <lastmod>2022-12-05</lastmod>
+    <lastmod>2022-12-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
