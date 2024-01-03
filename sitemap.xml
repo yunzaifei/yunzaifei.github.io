@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yunzaifei.github.io/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2024-01-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yunzaifei.github.io/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
     
     <lastmod>2024-01-03</lastmod>
@@ -379,6 +388,13 @@
   
   <url>
     <loc>http://yunzaifei.github.io/tags/prettier/</loc>
+    <lastmod>2024-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://yunzaifei.github.io/tags/gitea/</loc>
     <lastmod>2024-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

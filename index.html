@@ -282,6 +282,121 @@
 </article>
 
 
+  <article id="post-gitea的docker安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/">gitea的docker安装</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-06-02T06:35:54.000Z" itemprop="datePublished">2023年06月02日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+
+      
+      
+<a href="/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><code>Gitea</code>是一个自己托管的 Git 服务程序。他和<code>GitHub</code>, <code>Bitbucket</code>或<code>Gitlab</code>等比较类似。他是从<a target="_blank" rel="noopener" href="http://gogs.io/">Gogs</a> 发展而来，<code>Gitea</code>的首要目标是创建一个极易安装，运行非常快速，安装和使用体验良好的自建 Git 服务。</p>
+<ul>
+<li>官网：<a target="_blank" rel="noopener" href="https://gitea.io/zh-cn/">https://gitea.io/zh-cn/</a></li>
+</ul>
+<h3 id="安装-docker-compose"><a href="#安装-docker-compose" class="headerlink" title="安装 docker-compose"></a>安装 docker-compose</h3><p><code>Gitea</code>在其<code>Docker Hub</code>组织内提供自动更新的<code>Docker</code>镜像。可以始终使用最新的稳定标签或使用其他服务来更新<code>Docker</code>镜像。</p>
+<ol>
+<li>更新 apt 包索引并安装包以允许 apt 通过 HTTPS 使用存储库：</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> update</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ca-certificates curl gnupg</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>添加<code>Docker</code>的官方<code>GPG</code>密钥：</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo install -m <span class="number">0755</span> -d <span class="regexp">/etc/</span>apt/keyrings</span><br><span class="line">curl -fsSL https:<span class="regexp">//</span>download.docker.com<span class="regexp">/linux/</span>debian<span class="regexp">/gpg | sudo gpg --dearmor -o /</span>etc<span class="regexp">/apt/</span>keyrings/docker.gpg</span><br><span class="line">sudo chmod a+r <span class="regexp">/etc/</span>apt<span class="regexp">/keyrings/</span>docker.gpg</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>使用以下命令设置软件源：</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo \</span><br><span class="line">  <span class="string">&quot;deb [arch=&quot;</span>$(dpkg --<span class="keyword">print</span>-architecture)<span class="string">&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \</span></span><br><span class="line"><span class="string">  &quot;</span>$(. <span class="regexp">/etc/</span>os-release &amp;&amp; echo <span class="string">&quot;$VERSION_CODENAME&quot;</span>)<span class="string">&quot; stable&quot;</span> | \</span><br><span class="line">  sudo tee <span class="regexp">/etc/</span>apt<span class="regexp">/sources.list.d/</span>docker.list &gt; <span class="regexp">/dev/</span><span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>更新 apt 包索引：</li>
+</ol>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>安装<code>Docker Engine</code>、<code>containerd</code>和<code>Docker Compose</code>:</li>
+</ol>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-<span class="keyword">cli</span> containerd.io docker-buildx-<span class="keyword">plugin</span> docker-compose-<span class="keyword">plugin</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基本安装"><a href="#基本安装" class="headerlink" title="基本安装"></a>基本安装</h3><p>最简单的设置只是创建一个卷和一个网络，然后将<code>gitea/gitea:latest</code>镜像作为服务启动。创建一个类似<code>gitea</code>的目录，并将以下内容粘贴到名为<code>docker-compose.yml</code>的文件中。请注意，该卷应由配置文件中指定的<code>UID/GID</code>的用户&#x2F;组拥有。如果您不授予卷正确的权限，则容器可能无法启动。另请注意，标签 :latest 将安装当前的开发版本。对于稳定的发行版，您可以使用 :1 或指定某个发行版，例如 1.19.0-rc1。</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">version</span><span class="punctuation">:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">gitea</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">external</span><span class="punctuation">:</span> <span class="string">false</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">services</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">server</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">gitea/gitea:1.19.0-rc1</span></span><br><span class="line">    <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attribute">environment</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_UID=1000</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_GID=1000</span></span><br><span class="line">    <span class="attribute">restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">    <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attribute">volumes</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./gitea:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/timezone:/etc/timezone:ro</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line">    <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;222:22&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL-数据库"><a href="#MySQL-数据库" class="headerlink" title="MySQL 数据库"></a>MySQL 数据库</h3><p>要将<code>Gitea</code>与<code>MySQL</code>数据库结合使用，请将这些更改应用于上面创建的<code>docker-compose.yml</code>文件。</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">version</span><span class="punctuation">:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">gitea</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">external</span><span class="punctuation">:</span> <span class="string">false</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">services</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">server</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">gitea/gitea:1.19.0-rc1</span></span><br><span class="line">    <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attribute">environment</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_UID=1000</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">USER_GID=1000</span></span><br><span class="line">+      - GITEA__database__DB_TYPE=mysql</span><br><span class="line">+      - GITEA__database__HOST=db:3306</span><br><span class="line"><span class="attribute">+      - GITEA__database__NAME=gitea</span></span><br><span class="line"><span class="attribute">+      - GITEA__database__USER=gitea</span></span><br><span class="line"><span class="attribute">+      - GITEA__database__PASSWD=gitea</span></span><br><span class="line"><span class="attribute">    restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">    <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attribute">volumes</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./gitea:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/timezone:/etc/timezone:ro</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line">    <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;222:22&quot;</span></span><br><span class="line"><span class="attribute">+    depends_on</span><span class="punctuation">:</span></span><br><span class="line"><span class="attribute">+      - db</span></span><br><span class="line"><span class="attribute">+</span></span><br><span class="line"><span class="attribute">+  db</span><span class="punctuation">:</span></span><br><span class="line"><span class="attribute">+    image</span><span class="punctuation">:</span> <span class="string">mysql:8</span></span><br><span class="line"><span class="attribute">+    restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line"><span class="attribute">+    environment</span><span class="punctuation">:</span></span><br><span class="line"><span class="attribute">+      - MYSQL_ROOT_PASSWORD=gitea</span></span><br><span class="line"><span class="attribute">+      - MYSQL_USER=gitea</span></span><br><span class="line"><span class="attribute">+      - MYSQL_PASSWORD=gitea</span></span><br><span class="line"><span class="attribute">+      - MYSQL_DATABASE=gitea</span></span><br><span class="line"><span class="attribute">+    networks</span><span class="punctuation">:</span></span><br><span class="line"><span class="attribute">+      - gitea</span></span><br><span class="line"><span class="attribute">+    volumes</span><span class="punctuation">:</span></span><br><span class="line">+      - ./mysql:/var/lib/mysql</span><br></pre></td></tr></table></figure>
+
+<h3 id="命名卷"><a href="#命名卷" class="headerlink" title="命名卷"></a>命名卷</h3><p>要使用命名卷而不是主机卷，请在<code>docker-compose.yml</code>配置中定义并使用命名卷。此更改将自动创建所需的卷。您无需担心命名卷的权限；<code>Docker</code>将自动处理该问题。</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">version</span><span class="punctuation">:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">gitea</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">external</span><span class="punctuation">:</span> <span class="string">false</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">+volumes</span><span class="punctuation">:</span></span><br><span class="line"><span class="attribute">+  gitea</span><span class="punctuation">:</span></span><br><span class="line"><span class="attribute">+    driver</span><span class="punctuation">:</span> <span class="string">local</span></span><br><span class="line"><span class="attribute">+</span></span><br><span class="line"><span class="attribute">services</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">server</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">gitea/gitea:1.19.0-rc1</span></span><br><span class="line">    <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attribute">restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">    <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">gitea</span></span><br><span class="line">    <span class="attribute">volumes</span><span class="punctuation">:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">     - ./gitea:/data</span></span><br><span class="line">+      - gitea:/data</span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/timezone:/etc/timezone:ro</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line">    <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;222:22&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>要基于<code>docker-compose</code>启动此设置，请执行<code>docker-compose up -d</code>，以在后台启动<code>Gitea</code>。使用<code>docker-compose ps</code>将显示 Gitea 是否正确启动。可以使用<code>docker-compose logs</code>查看日志。</p>
+<p>要关闭设置，请执行<code>docker-compose down</code>。这将停止并杀死容器。这些卷将仍然存在。</p>
+<p>注意：如果在 http 上使用非 3000 端口，请更改<code>app.ini</code>以匹配<code>LOCAL_ROOT_URL = http://localhost:3000/</code>。</p>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yunzaifei.github.io/index.html">http://yunzaifei.github.io/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gitea/" rel="tag">gitea</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
   <article id="post-Nodejs项目配置Typescript-Eslint-prettier等" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
@@ -932,136 +1047,6 @@
 </article>
 
 
-  <article id="post-PWA实战（3）—Manifest" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/">PWA实战（3）—Manifest</a>
-    </h1>
-  
-
-
-      </header>
-    
-    <div class="article-meta">
-      
-      <span class="article-date">
-  <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2018-08-23T02:03:46.000Z" itemprop="datePublished">2018年08月23日</time>
-</span>
-      
-  <div class="article-category">
-    <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/categories/PWA/">PWA</a>
-  </div>
-
-      
-      
-<a href="/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/#comments" class="article-comment-link">
-  
-  <i class="fa fa-commt"></i>
-  留言
-</a>
-
-
-    </div>
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><code>Manifest</code>是一个 JSON 文件，您（即开发者）可以利用它控制在用户想要看到应用的区域（例如移动设备主屏幕）中如何向用户显示网络应用或网站，指示用户可以启动哪些功能，以及定义其在启动时的外观。</p>
-<p><code>Manifest</code>提供了将网站书签保存到设备主屏幕的功能。当网站以这种方式启动时：</p>
-<ul>
-<li>它具有唯一的图标和名称，以便用户将其与其他网站区分开来。</li>
-<li>它会在下载资源或从缓存恢复资源时向用户显示某些信息。</li>
-<li>它会向浏览器提供默认显示特性，以避免网站资源可用时的过渡过于生硬。</li>
-</ul>
-<p>它通过一个文本文件中的元数据这一简单机制完成所有这些工作。实现：</p>
-<ul>
-<li>创建清单并将其链接到您的页面，这是非常简单的过程。</li>
-<li>控制用户从主屏幕启动时看到的内容。</li>
-<li>这包括启动画面、主题颜色以及打开的网址等。</li>
-</ul>
-<h3 id="创建清单"><a href="#创建清单" class="headerlink" title="创建清单"></a>创建清单</h3><p>在对网络应用清单做详细探究之前，让我们先创建一个基本清单，然后为其链接一个网页。</p>
-<p>不管您要什么，都可以调用清单。大多数人使用<code>manifest.json</code>。下面是一个示例：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;short_name&quot;</span>: <span class="string">&quot;AirHorner&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Kinlan&#x27;s AirHorner of Infamy&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;icons&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;src&quot;</span>: <span class="string">&quot;launcher-icon-1x.png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;sizes&quot;</span>: <span class="string">&quot;48x48&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;src&quot;</span>: <span class="string">&quot;launcher-icon-2x.png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;sizes&quot;</span>: <span class="string">&quot;96x96&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;src&quot;</span>: <span class="string">&quot;launcher-icon-4x.png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;sizes&quot;</span>: <span class="string">&quot;192x192&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;start_url&quot;</span>: <span class="string">&quot;index.html?launcher=true&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>确保包括以下内容：</p>
-<ul>
-<li>在用户主屏幕上用作文本的<code>short_name</code>。</li>
-<li>在网络应用安装横幅中使用的<code>name</code>。</li>
-</ul>
-<h3 id="将清单的相关信息告知浏览器"><a href="#将清单的相关信息告知浏览器" class="headerlink" title="将清单的相关信息告知浏览器"></a>将清单的相关信息告知浏览器</h3><p>在您创建清单且将清单添加到您的网站之后，将<code>link</code>标记添加到包含网络应用的所有页面上，如下所示：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;manifest&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;/manifest.json&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="设置启动网址"><a href="#设置启动网址" class="headerlink" title="设置启动网址"></a>设置启动网址</h3><p>如果您不提供<code>start_url</code>，则将使用当前页面，这不太可能是您的用户想要的内容。 但这并不是将它包括在内的唯一原因。 由于您现在可以定义应用的启动方式，因此可向<code>start_url</code>添加一个查询字符串参数来说明其启动方式。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;start_url&quot;</span>: <span class="string">&quot;/?utm_source=homescreen&quot;</span></span><br></pre></td></tr></table></figure>
-<p>这可以是您希望的任何内容；我们要使用的值的优点是对网站统计十分有意义。</p>
-<h3 id="自定义图标"><a href="#自定义图标" class="headerlink" title="自定义图标"></a>自定义图标</h3><p>当用户将您的网站添加到其主屏幕时，您可以定义一组供浏览器使用的图标。您可以通过类型和大小定义它们，如下所示：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&quot;icons&quot;: [&#123;</span><br><span class="line">    <span class="string">&quot;src&quot;</span>: <span class="string">&quot;images/touch/icon-128x128.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sizes&quot;</span>: <span class="string">&quot;128x128&quot;</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;<span class="attribute">src</span>&quot;: <span class="string">&quot;images/touch/apple-touch-icon.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sizes&quot;</span>: <span class="string">&quot;152x152&quot;</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;<span class="attribute">src</span>&quot;: <span class="string">&quot;images/touch/ms-touch-icon-144x144-precomposed.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sizes&quot;</span>: <span class="string">&quot;144x144&quot;</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;<span class="attribute">src</span>&quot;: <span class="string">&quot;images/touch/chrome-touch-icon-192x192.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sizes&quot;</span>: <span class="string">&quot;192x192&quot;</span></span><br><span class="line">  &#125;],</span><br></pre></td></tr></table></figure>
-
-<h3 id="添加启动画面"><a href="#添加启动画面" class="headerlink" title="添加启动画面"></a>添加启动画面</h3><p>当您从主屏幕启动网络应用时，幕后执行了若干操作：</p>
-<ol>
-<li>Chrome 启动。</li>
-<li>显示页面的渲染器启动。</li>
-<li>您的网站从网络（如果网站有服务工作线程，则从缓存）加载。</li>
-</ol>
-<p>执行以上操作时，屏幕显示为白色并且看似已经停滞。如果您从网络加载网页时页面需要花费不止一两秒的时间才能让首页显现任何内容，这种情况将变得尤为明显。</p>
-<p>为提供更优质的用户体验，您可以用标题、颜色和图像来替换白色屏幕。</p>
-<h4 id="设置图像和标题"><a href="#设置图像和标题" class="headerlink" title="设置图像和标题"></a>设置图像和标题</h4><p>如果您从未落下课程进度，您已应完成了图像和标题的设置。Chrome 会根据清单的特定成员推断图像和标题。此处的要点是了解详情。</p>
-<p>启动画面图像提取自<code>icons</code>数组。Chrome 为设备选择最接近 128dp 的图像。标题是直接从<code>name</code>成员获取的。</p>
-<h4 id="设置背景颜色"><a href="#设置背景颜色" class="headerlink" title="设置背景颜色"></a>设置背景颜色</h4><p>利用适当命名的<code>background_color</code>属性指定背景颜色。 Chrome 在网络应用启动后会立即使用此颜色，这一颜色将保留在屏幕上，直至网络应用首次呈现为止。</p>
-<p>要设置背景颜色，请在您的清单中设置下列内容：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;background_color&quot;</span>: <span class="string">&quot;#2196F3&quot;</span>,</span><br></pre></td></tr></table></figure>
-<p>现在，从主屏幕启动您的网站时将不会呈现白色屏幕。</p>
-<p>该属性的建议适用值是加载页面的背景颜色。使用与加载页面相同的颜色可实现从启动画面到首页的平稳过渡。</p>
-<h4 id="设置主题颜色"><a href="#设置主题颜色" class="headerlink" title="设置主题颜色"></a>设置主题颜色</h4><p>使用<code>theme_color</code>属性指定主题颜色。该属性设置工具栏的颜色。 对此，我们还建议复制某种现有颜色，具体地讲就是<code>theme-color &lt;meta&gt;</code>。</p>
-<h3 id="设置启动样式"><a href="#设置启动样式" class="headerlink" title="设置启动样式"></a>设置启动样式</h3><p>利用网络应用清单来控制显示类型和页面方向。</p>
-<h4 id="自定义显示类型"><a href="#自定义显示类型" class="headerlink" title="自定义显示类型"></a>自定义显示类型</h4><p>您可以通过将<code>display</code>类型设置为<code>standalone</code>，让您的网络应用隐藏浏览器的UI：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;display&quot;</span>: <span class="string">&quot;standalone&quot;</span></span><br></pre></td></tr></table></figure>
-<p>如果您认为用户喜欢在浏览器中像正常网站一样查看您的网页，您可以将<code>display</code>类型设置为<code>browser</code>：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;display&quot;</span>: <span class="string">&quot;browser&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="指定页面的初始方向"><a href="#指定页面的初始方向" class="headerlink" title="指定页面的初始方向"></a>指定页面的初始方向</h4><p>您可以强制一个特定方向，这对于某些应用很有用，例如只能在一个方向上运行的游戏。 请有选择地使用。 用户更愿意能够自行选择方向。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;orientation&quot;</span>: <span class="string">&quot;landscape&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="提供全站主题颜色"><a href="#提供全站主题颜色" class="headerlink" title="提供全站主题颜色"></a>提供全站主题颜色</h3><p>Chrome 在 2014 年为您的网站引入了主题颜色这一概念。主题颜色是来自您的网页的提示，用于告知浏览器使用什么颜色来为地址栏等 UI 元素着色。</p>
-<p>如果没有清单，您需要在每个页面上定义主题颜色，并且如果您拥有的是大型网站或旧版网站，进行大量全站更改并不可行。<br>向您的清单添加<code>theme_color</code>属性后，从主屏幕启动网站时，网域中的每个页面都将自动获得主题颜色。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;theme_color&quot;</span>: <span class="string">&quot;#2196F3&quot;</span></span><br></pre></td></tr></table></figure>
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://yunzaifei.github.io/index.html">http://yunzaifei.github.io/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <div class="article-tag-wrap">
-          
-
-          
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PWA/" rel="tag">PWA</a></li></ul>
-
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
-      
-      
-      
-    </footer>
-  </div>
-</article>
-
-
 
     <nav id="page-nav">
 
@@ -1088,15 +1073,15 @@
           </li>
         
           <li>
+            <a href="/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/">gitea的docker安装</a>
+          </li>
+        
+          <li>
             <a href="/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/">Nodejs项目配置Typescript,Eslint,prettier等</a>
           </li>
         
           <li>
             <a href="/2022/05/05/Docker%E5%85%A5%E9%97%A8/">Docker入门</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/14/GraphQL%E5%85%A5%E9%97%A8/">GraphQL 入门</a>
           </li>
         
       </ul>
@@ -1109,7 +1094,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mongodb/" style="font-size: 13.33px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/widnows/" style="font-size: 13.33px;">widnows</a>
+      <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/gitea/" style="font-size: 10px;">gitea</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mongodb/" style="font-size: 13.33px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/widnows/" style="font-size: 13.33px;">widnows</a>
     </div>
   </div>
 
@@ -1118,7 +1103,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1128,7 +1113,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -1138,7 +1123,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/" rel="tag">eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/" rel="tag">prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/" rel="tag">eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitea/" rel="tag">gitea</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/" rel="tag">prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
