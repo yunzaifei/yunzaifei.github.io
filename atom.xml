@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yunzaifei.github.io/"/>
-  <updated>2022-12-27T07:39:41.989Z</updated>
+  <updated>2024-01-03T08:10:22.380Z</updated>
   <id>http://yunzaifei.github.io/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker常用命令</title>
+    <link href="http://yunzaifei.github.io/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yunzaifei.github.io/2024/01/03/Docker常用命令/</id>
+    <published>2024-01-03T08:09:59.000Z</published>
+    <updated>2024-01-03T08:10:22.380Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><strong>服务</strong></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看Docker版本信息</span></span><br><span class="line">docker version</span><br></pre></td></tr></table></figure><ul><li><strong>镜像</strong></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出镜像</span></span><br><span class="line">docker images 或者 docker image <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 删除指定镜像</span></span><br><span class="line">docker rmi &lt;镜像Id&gt; 或者 docker image <span class="built_in">rm</span> &lt;镜像Id&gt;</span><br><span class="line"><span class="comment"># 删除所有镜像</span></span><br><span class="line">docker rmi $(docker images -q)</span><br><span class="line"><span class="comment"># 删除所有&lt;none&gt;镜像</span></span><br><span class="line">docker rmi $(docker images | grep <span class="string">&quot;none&quot;</span> | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span>)</span><br><span class="line"><span class="comment"># 导入镜像</span></span><br><span class="line">docker load</span><br><span class="line"><span class="comment"># 构建镜像</span></span><br><span class="line">docker build docker build -t [镜像自定义名称] .</span><br><span class="line"><span class="comment"># 运行镜像</span></span><br><span class="line">docker run [镜像ID] docker run -it --name [容器自定义名称] -d [镜像名称]:latest</span><br><span class="line"><span class="comment"># 保存镜像到本地</span></span><br><span class="line">docker save [镜像名称] | gzip &gt; [保存文件名称]</span><br><span class="line"><span class="comment"># 加载本地镜像</span></span><br><span class="line">docker load &lt; [保存镜像文件名称]</span><br></pre></td></tr></table></figure><ul><li><strong>容器</strong></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出本机运行的容器</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="comment"># 列出本机所有的容器（包括停止和运行）</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="comment"># 新建并启动</span></span><br><span class="line">docker run [镜像名/镜像ID]</span><br><span class="line"><span class="comment"># 启动已终止容器</span></span><br><span class="line">docker start [容器ID]</span><br><span class="line"><span class="comment"># 停止运行的容器</span></span><br><span class="line">docker stop [容器ID]</span><br><span class="line"><span class="comment"># 杀死容器进程</span></span><br><span class="line">docker <span class="built_in">kill</span> [容器ID]</span><br><span class="line"><span class="comment"># 重启容器</span></span><br><span class="line">docker restart [容器ID]</span><br><span class="line"><span class="comment"># 删除容器</span></span><br><span class="line">docker <span class="built_in">rm</span> [容器ID]</span><br><span class="line"><span class="comment"># 交互式进入容器</span></span><br><span class="line">docker <span class="built_in">exec</span> [容器ID]</span><br><span class="line"><span class="comment"># 导出容器</span></span><br><span class="line">docker <span class="built_in">export</span> [容器ID]</span><br><span class="line"><span class="comment"># 导入容器</span></span><br><span class="line">docker import [路径]</span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line">docker logs [容器ID]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;服务&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;sp
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://yunzaifei.github.io/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="http://yunzaifei.github.io/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>服务器设置和Docker安装</title>
+    <link href="http://yunzaifei.github.io/2024/01/03/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8CDocker%E5%AE%89%E8%A3%85/"/>
+    <id>http://yunzaifei.github.io/2024/01/03/服务器设置和Docker安装/</id>
+    <published>2024-01-03T08:06:37.000Z</published>
+    <updated>2024-01-03T08:08:02.926Z</updated>
+    
+    <content type="html"><![CDATA[<p>服务器厂商每年都会搞促销活动，但是促销只针对新买的服务器，而之前买的服务器续费就没有促销。这样就导致，旧的服务器到期了就不能用了，上面部署的服务都要迁移到新的服务器。</p><h3 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h3><p>服务器选<code>Debian</code></p><ol><li>更改<code>root</code>密码</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure><ol start="2"><li>新建用户</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m zyf</span><br></pre></td></tr></table></figure><ol start="3"><li>配置免密登录</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本地生成公钥、私钥</span></span><br><span class="line">ssh-keygen -t ed25519 -f xxx_ed25519</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在目标服务器操作, 复制生成的公钥</span></span><br><span class="line">vi /home/zyf/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="built_in">chown</span> -R zyf:zyf /home/zyf/.ssh</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> 700 /home/zyf/.ssh</span><br><span class="line"><span class="built_in">chmod</span> 600 /home/zyf/.ssh/authorized_keys</span><br><span class="line"></span><br></pre></td></tr></table></figure><ol start="4"><li>禁用密码登录和<code>root</code>登录</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># 禁止root登录 PermitRootLogin yes改成no</span></span><br><span class="line"><span class="comment"># 禁止密码登录 PasswordAuthentication yes改为no</span></span><br><span class="line"><span class="comment"># 启用密钥验证 RSAAuthentication yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启sshd服务</span></span><br><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure><h3 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h3><ol><li>注册源</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add Docker&#x27;s official GPG key:</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ca-certificates curl gnupg</span><br><span class="line">sudo install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line">sudo <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.gpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the repository to Apt sources:</span></span><br><span class="line"><span class="built_in">echo</span> \</span><br><span class="line">  <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \</span></span><br><span class="line"><span class="string">  <span class="subst">$(. /etc/os-release &amp;&amp; echo <span class="string">&quot;<span class="variable">$VERSION_CODENAME</span>&quot;</span>)</span> stable&quot;</span> | \</span><br><span class="line">  sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><ol start="2"><li>安装</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;服务器厂商每年都会搞促销活动，但是促销只针对新买的服务器，而之前买的服务器续费就没有促销。这样就导致，旧的服务器到期了就不能用了，上面部署的服务都要迁移到新的服务器。&lt;/p&gt;
+&lt;h3 id=&quot;服务器设置&quot;&gt;&lt;a href=&quot;#服务器设置&quot; class=&quot;headerlink
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://yunzaifei.github.io/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="http://yunzaifei.github.io/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Nodejs项目配置Typescript,Eslint,prettier等</title>
@@ -477,59 +531,6 @@
       <category term="redis" scheme="http://yunzaifei.github.io/tags/redis/"/>
     
       <category term="widnows" scheme="http://yunzaifei.github.io/tags/widnows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mongodb3在windows上安装和启动</title>
-    <link href="http://yunzaifei.github.io/2016/05/03/mongodb3%E5%9C%A8windows%E4%B8%8A%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8/"/>
-    <id>http://yunzaifei.github.io/2016/05/03/mongodb3在windows上安装和启动/</id>
-    <published>2016-05-03T01:22:55.000Z</published>
-    <updated>2016-05-03T03:24:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Windows下安装MongoDB，虽然网上有很多攻略，但是还是有很多坑，为了以后少犯错误，特此记录。</p><p>官方下载地址：<a href="https://www.mongodb.org/downloads#production">https://www.mongodb.org/downloads#production</a></p><p>###安装MongoDB</p><ol><li><p>执行安装<br>直接点击安装包一路next下去，你懂的。不过最好把安装路径修改到非系统盘。</p></li><li><p>配置<br>比如我将MongoDB安装在D:\MongoDB\Server\3.2这个目录下，那么先要在目录D:\MongoDB(可以是任意位置，不过为了以后好管理，最好放到一块)下手动新建两个个文件夹：data、logs，再新建一个配置文件mongo.conf(名称可以任意取)。<br>配置文件里面的内容是：</p><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dbpath=D:<span class="symbol">\M</span>ongoDB<span class="symbol">\d</span>ata</span><br><span class="line">logpath=D:<span class="symbol">\M</span>ongoDB<span class="symbol">\l</span>og<span class="symbol">\m</span>ongo.log</span><br></pre></td></tr></table></figure></li><li><p>启动MongoDB<br>用管理员权限打开CMD，里面依次执行下面几行命令：</p><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd D:<span class="symbol">\M</span>ongoDB<span class="symbol">\S</span>erver<span class="symbol">\3</span>.2<span class="symbol">\b</span>in</span><br><span class="line">mongod --config D:<span class="symbol">\M</span>ongoDB<span class="symbol">\m</span>ongo.conf --serviceName &quot;MongoDB&quot; --install</span><br></pre></td></tr></table></figure><p>这时去服务列表，可以看到多了一项MongoDB的服务，启动该服务，以后就开机自动启动MongoDB服务了。</p></li></ol><p>备注：如果想要删除该服务，用管理员权限打开CMD，执行命令：</p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc <span class="keyword">delete</span> MongoDB</span><br></pre></td></tr></table></figure><ol start="4"><li>验证MongoDB服务<br>验证服务是否正常启动，可以在cmd命令中敲入“mongo”命令，正常启动的话会看到提示信息，按ctrl+c退出当前命令。</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Windows下安装MongoDB，虽然网上有很多攻略，但是还是有很多坑，为了以后少犯错误，特此记录。&lt;/p&gt;
-&lt;p&gt;官方下载地址：&lt;a href=&quot;https://www.mongodb.org/downloads#production&quot;&gt;https://www.mong
-      
-    
-    </summary>
-    
-      <category term="mongodb" scheme="http://yunzaifei.github.io/categories/mongodb/"/>
-    
-    
-      <category term="widnows" scheme="http://yunzaifei.github.io/tags/widnows/"/>
-    
-      <category term="mongodb" scheme="http://yunzaifei.github.io/tags/mongodb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nodejs安装</title>
-    <link href="http://yunzaifei.github.io/2016/01/19/nodejs%E5%AE%89%E8%A3%85/"/>
-    <id>http://yunzaifei.github.io/2016/01/19/nodejs安装/</id>
-    <published>2016-01-19T08:02:25.000Z</published>
-    <updated>2018-01-16T14:52:18.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。<br>nodjs官网：<a href="https://nodejs.org/">https://nodejs.org</a></p><h4 id="windows下安装"><a href="#windows下安装" class="headerlink" title="windows下安装"></a>windows下安装</h4><p>windows下的安装很简单，直接去官网下载安装包，下载完成后双击之后下一步直到完成。然后打开cmd命令行窗口敲入命令“node -v”，如果按照成功，就会显示对应的版本号。</p><p>不过windows下虽然安装的时候能够选择nodejs的安装路径（比如为了减少C盘空间，安装在D盘），但是npm的默认路径是在C盘AppData下，如果希望npm全局安装路径，可以进行如下操作：</p><ol><li>假设nodejs的安装路径是<code>D:\Program Files\nodejs</code>，在此路径下建立<code>node_global</code>及<code>node_cache</code>两个文件夹。在路<code>D:\Program  Files\nodejs\node_modules\npm</code>下找一个名字为<code>npmrc</code>的文件，用记事本打开，修改为<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prefix = D:<span class="symbol">\P</span>rogram Files<span class="symbol">\n</span>odejs<span class="symbol">\n</span>ode_global</span><br><span class="line">cache  = D:<span class="symbol">\P</span>rogram Files<span class="symbol">\n</span>odejs<span class="symbol">\n</span>ode_cache</span><br></pre></td></tr></table></figure></li><li>修改环境变量，“我的电脑”右键“属性”-“高级系统设置”-“高级”-“环境变量”，在系统变量下新建<code>NODE_PATH</code>，输入是<code>D:\Program Files\nodejs\node_global\node_modules</code>。上面的用户变量都要跟着改变一下（用户变量“PATH”中的<code>C:\Users\&#123;用户名&#125;\AppData\Roaming</code>修改为<code>D:\Program Files\nodejs\node_global\</code>），保存修改即可。</li></ol><h4 id="linux下安装（以centos为例）"><a href="#linux下安装（以centos为例）" class="headerlink" title="linux下安装（以centos为例）"></a>linux下安装（以centos为例）</h4><p>linux的安装可以分为yum命令安装和源码编译安装两种</p><ol><li><p>源码编译安装<br>去官网下载Source code文件</p><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#  tar xvf node-v4.2.4.tar.gz</span></span><br><span class="line"><span class="meta">#  cd node-v4.2.4</span></span><br><span class="line"><span class="meta">#  ./configure</span></span><br><span class="line"><span class="meta"># make</span></span><br><span class="line"><span class="meta"># make install</span></span><br><span class="line"><span class="meta"># cp /usr/local/bin/node /usr/sbin/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//查看当前安装的Node的版本</span></span><br><span class="line"><span class="meta"># node -v</span></span><br></pre></td></tr></table></figure><p>这方式的缺点就是版本编译的时间较长，甚至中间会出现错误。</p></li><li><p>yum命令安装<br>在centos中执行如下命令</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span>可以不添加“-y”参数</span><br><span class="line"><span class="comment"># yum install -y nodejs</span></span><br><span class="line"><span class="regexp">//</span>查看nodejs版本</span><br><span class="line"><span class="comment"># node -v</span></span><br></pre></td></tr></table></figure><p>这样执行完之后，你会发现nodejs的版本是lts版本（最好安装了epel源），不是最新的，我想要最新的版本有没有啊，或者我想切换着不同版本使用！<br>不怕，还有一个东西叫npm呢，NPM的全称是Node Package Manager，是一个NodeJS包管理和分发工具，已经成为了非官方的发布Node模块（包）的标准。最新的nodejs版本都会集成安装npm，无须单独安装。不过，通过yum命令安装的nodejs竟然没有集成npm（centos7上如此，其他linux版本情况请自行查看），不怕，yum命令能安装nodejs，也能安装npm。</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span>安装npm</span><br><span class="line"><span class="comment"># yum install -y npm</span></span><br><span class="line"><span class="regexp">//</span>查看npm版本</span><br><span class="line"><span class="comment"># npm -v</span></span><br><span class="line"><span class="regexp">//</span>更新npm到最新版</span><br><span class="line"><span class="comment"># npm install -g npm</span></span><br><span class="line"><span class="regexp">//</span>安装传说中的n模块</span><br><span class="line"><span class="comment"># npm install -g n</span></span><br><span class="line"><span class="regexp">//</span>nodejs版本分为最新稳定版（stable）和长效版（lts），推荐安装长效版（lts）</span><br><span class="line"><span class="comment"># n lts</span></span><br><span class="line"><span class="regexp">//</span>安装最新稳定版（stable）</span><br><span class="line"><span class="comment"># n stable</span></span><br><span class="line"><span class="regexp">//</span>安装特定版本，比如v0.<span class="number">10.26</span></span><br><span class="line"><span class="comment"># n v0.10.26</span></span><br><span class="line"><span class="regexp">//</span>查看nodejs版本</span><br><span class="line"><span class="comment"># node -v</span></span><br><span class="line"><span class="regexp">//</span>查看npm版本</span><br><span class="line"><span class="comment"># npm -v</span></span><br></pre></td></tr></table></figure></li><li><p>nodejs官方curl命令</p></li></ol><p>官方网址：<a href="https://nodejs.org/en/download/package-manager/">https://nodejs.org/en/download/package-manager/</a><br>在centos中执行如下命令</p><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装Node.js v8 LTS:</span></span><br><span class="line">curl --silent --<span class="keyword">location</span> <span class="title">https</span>://rpm.nodesource.com/setup_8.x | sudo bash -</span><br><span class="line"><span class="comment"># 安装Node.js 9:</span></span><br><span class="line">curl --silent --<span class="keyword">location</span> <span class="title">https</span>://rpm.nodesource.com/setup_9.x | sudo bash -</span><br></pre></td></tr></table></figure><p>此时如果执行“cd /etc/yum.repos.d &amp;&amp; ls”命令，可以看到一个“nodesource-el7.repo”的文件，之后就可以使用yum命令安装</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y <span class="keyword">install</span> nodejs</span><br></pre></td></tr></table></figure><h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>总得来说，还是yum命令安装最省心省力, 如果没有切换多版本的需求，可以使用官方curl命令的方式。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。&lt;br&gt;nodjs官网：&lt;a href=&quot;h
-      
-    
-    </summary>
-    
-      <category term="nodejs" scheme="http://yunzaifei.github.io/categories/nodejs/"/>
-    
-    
-      <category term="nodejs" scheme="http://yunzaifei.github.io/tags/nodejs/"/>
     
   </entry>
   

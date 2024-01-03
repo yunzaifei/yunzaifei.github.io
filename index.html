@@ -91,6 +91,197 @@
 
       <div class="outer">
         <section id="main">
+  <article id="post-Docker常用命令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Docker常用命令</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-01-03T08:09:59.000Z" itemprop="datePublished">2024年01月03日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+  </div>
+
+      
+      
+<a href="/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><strong>服务</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看Docker版本信息</span></span><br><span class="line">docker version</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>镜像</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出镜像</span></span><br><span class="line">docker images 或者 docker image <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 删除指定镜像</span></span><br><span class="line">docker rmi &lt;镜像Id&gt; 或者 docker image <span class="built_in">rm</span> &lt;镜像Id&gt;</span><br><span class="line"><span class="comment"># 删除所有镜像</span></span><br><span class="line">docker rmi $(docker images -q)</span><br><span class="line"><span class="comment"># 删除所有&lt;none&gt;镜像</span></span><br><span class="line">docker rmi $(docker images | grep <span class="string">&quot;none&quot;</span> | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span>)</span><br><span class="line"><span class="comment"># 导入镜像</span></span><br><span class="line">docker load</span><br><span class="line"><span class="comment"># 构建镜像</span></span><br><span class="line">docker build docker build -t [镜像自定义名称] .</span><br><span class="line"><span class="comment"># 运行镜像</span></span><br><span class="line">docker run [镜像ID] docker run -it --name [容器自定义名称] -d [镜像名称]:latest</span><br><span class="line"><span class="comment"># 保存镜像到本地</span></span><br><span class="line">docker save [镜像名称] | gzip &gt; [保存文件名称]</span><br><span class="line"><span class="comment"># 加载本地镜像</span></span><br><span class="line">docker load &lt; [保存镜像文件名称]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>容器</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出本机运行的容器</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="comment"># 列出本机所有的容器（包括停止和运行）</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="comment"># 新建并启动</span></span><br><span class="line">docker run [镜像名/镜像ID]</span><br><span class="line"><span class="comment"># 启动已终止容器</span></span><br><span class="line">docker start [容器ID]</span><br><span class="line"><span class="comment"># 停止运行的容器</span></span><br><span class="line">docker stop [容器ID]</span><br><span class="line"><span class="comment"># 杀死容器进程</span></span><br><span class="line">docker <span class="built_in">kill</span> [容器ID]</span><br><span class="line"><span class="comment"># 重启容器</span></span><br><span class="line">docker restart [容器ID]</span><br><span class="line"><span class="comment"># 删除容器</span></span><br><span class="line">docker <span class="built_in">rm</span> [容器ID]</span><br><span class="line"><span class="comment"># 交互式进入容器</span></span><br><span class="line">docker <span class="built_in">exec</span> [容器ID]</span><br><span class="line"><span class="comment"># 导出容器</span></span><br><span class="line">docker <span class="built_in">export</span> [容器ID]</span><br><span class="line"><span class="comment"># 导入容器</span></span><br><span class="line">docker import [路径]</span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line">docker logs [容器ID]</span><br></pre></td></tr></table></figure>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yunzaifei.github.io/index.html">http://yunzaifei.github.io/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-服务器设置和Docker安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/01/03/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8CDocker%E5%AE%89%E8%A3%85/">服务器设置和Docker安装</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-01-03T08:06:37.000Z" itemprop="datePublished">2024年01月03日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+  </div>
+
+      
+      
+<a href="/2024/01/03/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8CDocker%E5%AE%89%E8%A3%85/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>服务器厂商每年都会搞促销活动，但是促销只针对新买的服务器，而之前买的服务器续费就没有促销。这样就导致，旧的服务器到期了就不能用了，上面部署的服务都要迁移到新的服务器。</p>
+<h3 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h3><p>服务器选<code>Debian</code></p>
+<ol>
+<li>更改<code>root</code>密码</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>新建用户</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m zyf</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>配置免密登录</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本地生成公钥、私钥</span></span><br><span class="line">ssh-keygen -t ed25519 -f xxx_ed25519</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在目标服务器操作, 复制生成的公钥</span></span><br><span class="line">vi /home/zyf/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="built_in">chown</span> -R zyf:zyf /home/zyf/.ssh</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> 700 /home/zyf/.ssh</span><br><span class="line"><span class="built_in">chmod</span> 600 /home/zyf/.ssh/authorized_keys</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>禁用密码登录和<code>root</code>登录</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># 禁止root登录 PermitRootLogin yes改成no</span></span><br><span class="line"><span class="comment"># 禁止密码登录 PasswordAuthentication yes改为no</span></span><br><span class="line"><span class="comment"># 启用密钥验证 RSAAuthentication yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启sshd服务</span></span><br><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h3><ol>
+<li>注册源</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add Docker&#x27;s official GPG key:</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ca-certificates curl gnupg</span><br><span class="line">sudo install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line">sudo <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.gpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the repository to Apt sources:</span></span><br><span class="line"><span class="built_in">echo</span> \</span><br><span class="line">  <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \</span></span><br><span class="line"><span class="string">  <span class="subst">$(. /etc/os-release &amp;&amp; echo <span class="string">&quot;<span class="variable">$VERSION_CODENAME</span>&quot;</span>)</span> stable&quot;</span> | \</span><br><span class="line">  sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yunzaifei.github.io/index.html">http://yunzaifei.github.io/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
   <article id="post-Nodejs项目配置Typescript-Eslint-prettier等" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
@@ -871,251 +1062,6 @@
 </article>
 
 
-  <article id="post-PWA实战（2）—Service-Wroker" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2018/08/12/PWA%E5%AE%9E%E6%88%98%EF%BC%882%EF%BC%89%E2%80%94Service-Wroker/">PWA实战（2）—Service Wroker</a>
-    </h1>
-  
-
-
-      </header>
-    
-    <div class="article-meta">
-      
-      <span class="article-date">
-  <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2018-08-12T13:00:46.000Z" itemprop="datePublished">2018年08月12日</time>
-</span>
-      
-  <div class="article-category">
-    <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/categories/PWA/">PWA</a>
-  </div>
-
-      
-      
-<a href="/2018/08/12/PWA%E5%AE%9E%E6%88%98%EF%BC%882%EF%BC%89%E2%80%94Service-Wroker/#comments" class="article-comment-link">
-  
-  <i class="fa fa-commt"></i>
-  留言
-</a>
-
-
-    </div>
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是Service-Worker"><a href="#什么是Service-Worker" class="headerlink" title="什么是Service Worker"></a>什么是Service Worker</h3><p>一个<code>Service Worker</code>是一种类型的<code>web worker</code>。它本质上是一个JavaScript文件，它与主浏览器线程分开运行，拦截网络请求，缓存或从缓存中检索资源，以及传递推送消息。</p>
-<p>由于工作者与主线程分开运行，因此<code>Service Worker</code>独立于与其关联的应用程序。这有几个后果：</p>
-<ul>
-<li><p>因为<code>Service Worker</code>没有阻塞（它被设计为完全异步）同步XHR并且localStorage不能在<code>Service Worker</code>中使用。</p>
-</li>
-<li><p>当应用程序未处于活动状态时，<code>Service Worker</code>可以从服务器接收推送消息。这样，即使未在浏览器中打开，您的应用也会向用户显示推送通知。</p>
-</li>
-<li><p><code>Service Worker</code>无法直接访问DOM。为了与页面通信，<code>Service Worker</code>使用<code>postMessage()</code>方法发送数据，并使用<code>message</code>事件监听器来接收数据。</p>
-</li>
-</ul>
-<p>关于<code>Service Worker</code>的注意事项：</p>
-<ul>
-<li><p><code>Service Worker</code>是一种可编程网络代理，可让您控制如何处理来自页面的网络请求。</p>
-</li>
-<li><p><code>Service Worker</code>只能通过HTTPS运行。由于<code>Service Worker</code>可以拦截网络请求并修改响应，因此“中间人”攻击可能非常糟糕。</p>
-<blockquote>
-<p>注意：像<code>Let&#39;s Encrypt</code>这样的服务允许您免费获得SSL证书以便在服务器上安装。</p>
-</blockquote>
-</li>
-<li><p><code>Service Worker</code>工作程序在不使用时变为空闲状态，并在下次需要时重新启动。您不能依赖事件之间持久存在的全局状态。如果存在需要在重新启动时保留和重用的信息，则可以使用<code>IndexedDB</code>数据库。</p>
-</li>
-<li><p><code>Service Worker</code>广泛使用<code>Promises</code>。</p>
-</li>
-</ul>
-<h3 id="Service-Worker能做什么"><a href="#Service-Worker能做什么" class="headerlink" title="Service Worker能做什么"></a>Service Worker能做什么</h3><p><code>Service Worker</code>使应用程序能够控制网络请求，缓存这些请求以提高性能，并提供对缓存内容的脱机访问。</p>
-<p><code>Service Worker</code>依赖于两个API来使应用程序脱机工作： <code>Fetch</code>（从网络检索内容的标准方法）和<code>Cache</code>（应用程序数据的持久内容存储）。这个<code>Cache</code>是持久的，独立于浏览器缓存或网络状态。</p>
-<h4 id="提高应用程序-站点的性能"><a href="#提高应用程序-站点的性能" class="headerlink" title="提高应用程序/站点的性能"></a>提高应用程序/站点的性能</h4><p>缓存资源将使内容在大多数网络条件下加载更快。有关缓存策略的完整列表，请参阅 使用<a target="_blank" rel="noopener" href="https://developers.google.com/web/ilt/pwa/lab-caching-files-with-service-worker">Caching files with the service worker</a>和<a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">The Offline Cookbook</a>。</p>
-<h4 id="让您的应用“离线优先”"><a href="#让您的应用“离线优先”" class="headerlink" title="让您的应用“离线优先”"></a>让您的应用“离线优先”</h4><p>使用<code>Service Worker</code>内部的<code>Fetch API</code>，我们可以拦截网络请求，然后使用所请求资源以外的内容修改响应。当用户离线时，我们可以使用此技术从缓存中提供资源。请参阅 使用<code>Service Worker</code>缓存文件以获得此技术的实际操作经验。</p>
-<h4 id="充当高级功能的基础"><a href="#充当高级功能的基础" class="headerlink" title="充当高级功能的基础"></a>充当高级功能的基础</h4><p><code>Service Worker</code>提供了使Web应用程序像本机应用程序一样工作的功能的起点。其中一些功能是：</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Notifications_API">Notifications API</a>：使用操作系统的本机通知系统显示通知并与通信交互的方法。</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Push_API">Push API</a>：一种API，可让您的应用订阅推送服务并接收推送消息。推送消息被传递给<code>Service Worker</code>，<code>Service Worker</code>可以使用消息中的信息来更新本地状态或向用户显示通知。由于<code>Service Worker</code>独立于主应用程序运行，因此即使浏览器未运行，他们也可以接收和显示通知。</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://developers.google.com/web/updates/2015/12/background-sync">Background Sync API</a>：允许您将操作推迟到用户具有稳定连接。这对于确保实际发送用户想要发送的内容非常有用。此API还允许服务器定期更新应用程序，以便应用程序可以在下次联机时进行更新</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/API/Channel_Messaging_API">Channel Messaging API</a>：允许Web工作者和<code>Service Worker</code>相互通信并与主机应用程序通信。此API的示例包括新内容通知和需要用户交互的更新。</p>
-</li>
-</ul>
-<h3 id="Service-Worker生命周期"><a href="#Service-Worker生命周期" class="headerlink" title="Service Worker生命周期"></a>Service Worker生命周期</h3><p><code>Service Worker</code>在其生命周期中经历三个步骤：</p>
-<ul>
-<li>注册</li>
-<li>安装</li>
-<li>激活</li>
-</ul>
-<h4 id="注册和作用域"><a href="#注册和作用域" class="headerlink" title="注册和作用域"></a>注册和作用域</h4><p>要安装<code>Service Worker</code>，您需要在主JavaScript代码中注册它。注册会告诉浏览器您的<code>Service Worker</code>所在的位置，并开始在后台安装它。我们来看一个例子：</p>
-<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;serviceWorker&#x27;</span> in navigator) &#123;</span><br><span class="line">  navigator.serviceWorker.register(<span class="string">&#x27;/service-worker.js&#x27;</span>)</span><br><span class="line">  .<span class="keyword">then</span>(<span class="function"><span class="keyword">function</span><span class="params">(registration)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span>(<span class="string">&#x27;Registration successful, scope is:&#x27;</span>, registration.scope);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="keyword">catch</span>(<span class="function"><span class="keyword">function</span><span class="params">(error)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span>(<span class="string">&#x27;Service worker registration failed, error:&#x27;</span>, <span class="built_in">error</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此代码首先检查浏览器支持<code>navigator.serviceWorker</code>。然后向<code>Service Worker</code>注册，<code>navigator.serviceWorker.register</code>返回在<code>Service Worker</code>成功注册时解析的<code>promise</code>，然后用记录<code>registration.scope</code>。</p>
-<p><code>scope</code>是确定哪些<code>Service Worker</code>控制的，换句话说，从该路径的<code>Service Worker</code>将拦截请求。默认范围是<code>Service Worker</code>文件的位置，并扩展到下面的所有目录。因此，如果<code>service-worker.js</code>位于根目录中，则<code>Service Worker</code>将控制来自此域的所有文件的请求。</p>
-<p>您还可以通过在注册时传入其他参数来设置任意范围。例如：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">navigator.serviceWorker.register(&#x27;/service-worker.js&#x27;, &#123;</span><br><span class="line">  scope: &#x27;/app/&#x27;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>在这种情况下，我们设置<code>Service Worker</code>的作用域到<code>/app/</code>，这意味着<code>Service Worker</code>作用域包括<code>/app/</code>，<code>/app/lower/</code>以及<code>/app/lower/lower</code>等，但不包括<code>/app</code>或者<code>/</code>，以及其他上一级的路径。</p>
-<p>如果已安装<code>Service Worker</code>，则<code>navigator.serviceWorker.register</code>返回当前<code>Service Worker</code>的注册对象。</p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>一旦浏览器注册了<code>Service Worker</code>，就可以尝试安装。如果浏览器认为<code>Service Worker</code>是新用户，则会安装<code>Service Worker</code>，原因是该站点当前没有已注册的<code>Service Worker</code>，或者因为新<code>Service Worker</code>与之前安装的<code>Service Worker</code>之间存在字节差异。</p>
-<p><code>Service Worker</code>安装会在安装过程中触发事件。我们可以在<code>Service Worker</code>安装过程中包含一个事件监听器，以便在安装<code>Service Worker</code>时执行某些任务。例如，在安装过程中，<code>Service Worker</code>可以预先缓存Web应用程序的某些部分，以便在用户下次打开它时立即加载。因此，在第一次加载之后，您将从即时重复加载中受益，并且在这些情况下，您的交互时间将变得更好。安装事件侦听器的示例如下所示：</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">Listen</span> <span class="keyword">for</span> install event, <span class="keyword">set</span> callback</span><br><span class="line">self.addEventListener(<span class="string">&#x27;install&#x27;</span>, <span class="keyword">function</span>(event) &#123;</span><br><span class="line">    // <span class="keyword">Perform</span> <span class="keyword">some</span> task</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h4><p>一旦<code>Service Worker</code>成功安装，它就会转换到激活阶段。如果存在由前一个<code>Service Worker</code>控制的任何打开页面，则新<code>Service Worker</code>进入waiting状态。新<code>Service Worker</code>仅在不再加载仍在使用旧<code>Service Worker</code>的任何页面时激活。这可确保在任何给定时间只运行一个版本的<code>Service Worker</code>。</p>
-<blockquote>
-<p>注意：仅刷新页面不足以将控制权转移给新的<code>Service Worker</code>，因为在卸载当前页面之前将请求新页面，并且不会有旧<code>Service Worker</code>未使用的时间。<br>当新<code>Service Worker</code>激活时，将激活的<code>Service Worker</code>中触发事件<code>activate</code>。此事件侦听器是清理过时缓存的好地方</p>
-</blockquote>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">&#x27;activate&#x27;</span>, <span class="keyword">function</span>(event) &#123;</span><br><span class="line">  // <span class="keyword">Perform</span> <span class="keyword">some</span> task</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>激活后，<code>Service Worker</code>将控制在其作用域内加载的所有页面，并开始侦听来自这些页面的事件。但是，在<code>Service Worker</code>激活之前加载的页面不在<code>Service Worker</code>控制之下。新<code>Service Worker</code>只会在您关闭并重新打开应用程序或执行 <code>clients.claim()</code>时接管。在此之前，新<code>Service Worker</code>不会截获此页面的请求。这是有意识的，以确保您的网站的一致性。</p>
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://yunzaifei.github.io/index.html">http://yunzaifei.github.io/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <div class="article-tag-wrap">
-          
-
-          
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PWA/" rel="tag">PWA</a></li></ul>
-
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
-      
-      
-      
-    </footer>
-  </div>
-</article>
-
-
-  <article id="post-PWA实战（1）—概述" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2018/07/02/PWA%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89%E2%80%94%E6%A6%82%E8%BF%B0/">PWA实战（1）—概述</a>
-    </h1>
-  
-
-
-      </header>
-    
-    <div class="article-meta">
-      
-      <span class="article-date">
-  <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2018-07-02T02:53:57.000Z" itemprop="datePublished">2018年07月02日</time>
-</span>
-      
-  <div class="article-category">
-    <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/categories/PWA/">PWA</a>
-  </div>
-
-      
-      
-<a href="/2018/07/02/PWA%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89%E2%80%94%E6%A6%82%E8%BF%B0/#comments" class="article-comment-link">
-  
-  <i class="fa fa-commt"></i>
-  留言
-</a>
-
-
-    </div>
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是PWA"><a href="#什么是PWA" class="headerlink" title="什么是PWA"></a>什么是PWA</h3><p>PWA（Progressive Web Apps）是渐进式web应用程序，它是2016年，Google I/O 大会上提出的一个概念。这并不是描述一个技术，而是一些技术的合集。PWA是专门应对手机Web开发而提出的，通过新技术的成熟，实现最好的Web + 手机APP。</p>
-<h3 id="PWA特点"><a href="#PWA特点" class="headerlink" title="PWA特点"></a>PWA特点</h3><ul>
-<li><p>可发现：能被识别为应用程序，通过搜索引擎能容易找到。</p>
-</li>
-<li><p>可安装：可用于的移动设备，用户的主屏幕上 - 没有应用程序商店的麻烦。</p>
-</li>
-<li><p>可连接：通过URL轻松共享，无需复杂的安装。</p>
-</li>
-<li><p>网络独立：可工作在离线或低速的网络环境下。</p>
-</li>
-<li><p>渐进增强：适用于所有用户，无论选择什么种类的浏览器。</p>
-</li>
-<li><p>再参与：使用提醒注意让用户更容易的参与，即使用户没有使用他们的设备。</p>
-</li>
-<li><p>响应式：适合任何形式的因素：台式机，手机，平板电脑，或任何随之而来的新设备。</p>
-</li>
-</ul>
-<ul>
-<li>安全：传递机制可以防止监听，并保证内容不被篡改。</li>
-</ul>
-<h3 id="主要技术"><a href="#主要技术" class="headerlink" title="主要技术"></a>主要技术</h3><ul>
-<li>Https</li>
-<li>Service Worker</li>
-<li>Web App Manifest</li>
-<li>Push Notification</li>
-</ul>
-<h3 id="成功案例"><a href="#成功案例" class="headerlink" title="成功案例"></a>成功案例</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://h5.ele.me/">饿了么</a></li>
-<li><a href="m.weibo.cn/beta">新浪微博</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.flipkart.com/">Flipkart</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.instagram.com/">Instagram</a></li>
-<li><a target="_blank" rel="noopener" href="https://mobile.twitter.com/">Twitter</a></li>
-<li><a target="_blank" rel="noopener" href="https://wiki-offline.jakearchibald.com/">Offline Wikipedia</a></li>
-</ul>
-<p>PWA 资源大全: <a target="_blank" rel="noopener" href="https://outweb.io/">Outweb</a>, <a target="_blank" rel="noopener" href="https://pwa-directory.appspot.com/">PWA Directory</a></p>
-<p>PWA资料: <a target="_blank" rel="noopener" href="https://developers.google.com/web/ilt/pwa/">Google Developers</a></p>
-
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="http://yunzaifei.github.io/index.html">http://yunzaifei.github.io/index.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <div class="article-tag-wrap">
-          
-
-          
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PWA/" rel="tag">PWA</a></li></ul>
-
-          
-    <div class="social-share">
-      <span>分享到:</span>
-    </div>
-
-
-
-        </div>
-      
-      
-      
-    </footer>
-  </div>
-</article>
-
-
 
     <nav id="page-nav">
 
@@ -1134,6 +1080,14 @@
       <ul>
         
           <li>
+            <a href="/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Docker常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/03/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8CDocker%E5%AE%89%E8%A3%85/">服务器设置和Docker安装</a>
+          </li>
+        
+          <li>
             <a href="/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/">Nodejs项目配置Typescript,Eslint,prettier等</a>
           </li>
         
@@ -1143,14 +1097,6 @@
         
           <li>
             <a href="/2020/06/14/GraphQL%E5%85%A5%E9%97%A8/">GraphQL 入门</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/31/Redux%E7%AE%80%E4%BB%8B/">Redux简介</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/21/Nextjs%E7%AE%80%E4%BB%8B/">Nextjs简介</a>
           </li>
         
       </ul>
@@ -1163,7 +1109,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mongodb/" style="font-size: 15px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/widnows/" style="font-size: 15px;">widnows</a>
+      <a href="/tags/Docker/" style="font-size: 16.67px;">Docker</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mongodb/" style="font-size: 13.33px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/widnows/" style="font-size: 13.33px;">widnows</a>
     </div>
   </div>
 
@@ -1172,7 +1118,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1182,7 +1128,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -1192,7 +1138,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/" rel="tag">eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/" rel="tag">prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/" rel="tag">eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/" rel="tag">prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -1241,7 +1187,7 @@
         </p>
       
       <p>
-        <span>Copyright &copy; 2023 yunzaifei.</span>
+        <span>Copyright &copy; 2024 yunzaifei.</span>
         <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
         <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
       </p>
