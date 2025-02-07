@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>PWA实战（2）—Service Wroker | 云在飞的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="云在飞的技术博客，分享最新的IT技术和互联网热点内容">
+  
+  
+    <meta name="keywords" content="云在飞, 技术">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="云在飞的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">云在飞的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">如果你惟一的工具是一把锤子，你往往会把一切问题看成钉子</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-PWA实战（2）—Service-Wroker" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      PWA实战（2）—Service Wroker
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-08-12T13:00:46.000Z" itemprop="datePublished">2018年08月12日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/PWA/">PWA</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2018/08/12/PWA%E5%AE%9E%E6%88%98%EF%BC%882%EF%BC%89%E2%80%94Service-Wroker/#comments" class="article-comment-link">
+  
+    
+    
+      <i class="disqus-comment-count" data-disqus-identifier="/2018/08/12/PWA%E5%AE%9E%E6%88%98%EF%BC%882%EF%BC%89%E2%80%94Service-Wroker/"></i>
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是Service-Worker"><a href="#什么是Service-Worker" class="headerlink" title="什么是Service Worker"></a>什么是Service Worker</h3><p>一个<code>Service Worker</code>是一种类型的<code>web worker</code>。它本质上是一个JavaScript文件，它与主浏览器线程分开运行，拦截网络请求，缓存或从缓存中检索资源，以及传递推送消息。</p>
+<p>由于工作者与主线程分开运行，因此<code>Service Worker</code>独立于与其关联的应用程序。这有几个后果：</p>
+<ul>
+<li><p>因为<code>Service Worker</code>没有阻塞（它被设计为完全异步）同步XHR并且localStorage不能在<code>Service Worker</code>中使用。</p>
+</li>
+<li><p>当应用程序未处于活动状态时，<code>Service Worker</code>可以从服务器接收推送消息。这样，即使未在浏览器中打开，您的应用也会向用户显示推送通知。</p>
+</li>
+<li><p><code>Service Worker</code>无法直接访问DOM。为了与页面通信，<code>Service Worker</code>使用<code>postMessage()</code>方法发送数据，并使用<code>message</code>事件监听器来接收数据。</p>
+</li>
+</ul>
+<p>关于<code>Service Worker</code>的注意事项：</p>
+<ul>
+<li><p><code>Service Worker</code>是一种可编程网络代理，可让您控制如何处理来自页面的网络请求。</p>
+</li>
+<li><p><code>Service Worker</code>只能通过HTTPS运行。由于<code>Service Worker</code>可以拦截网络请求并修改响应，因此“中间人”攻击可能非常糟糕。</p>
+<blockquote>
+<p>注意：像<code>Let&#39;s Encrypt</code>这样的服务允许您免费获得SSL证书以便在服务器上安装。</p>
+</blockquote>
+</li>
+<li><p><code>Service Worker</code>工作程序在不使用时变为空闲状态，并在下次需要时重新启动。您不能依赖事件之间持久存在的全局状态。如果存在需要在重新启动时保留和重用的信息，则可以使用<code>IndexedDB</code>数据库。</p>
+</li>
+<li><p><code>Service Worker</code>广泛使用<code>Promises</code>。</p>
+</li>
+</ul>
+<h3 id="Service-Worker能做什么"><a href="#Service-Worker能做什么" class="headerlink" title="Service Worker能做什么"></a>Service Worker能做什么</h3><p><code>Service Worker</code>使应用程序能够控制网络请求，缓存这些请求以提高性能，并提供对缓存内容的脱机访问。</p>
+<p><code>Service Worker</code>依赖于两个API来使应用程序脱机工作： <code>Fetch</code>（从网络检索内容的标准方法）和<code>Cache</code>（应用程序数据的持久内容存储）。这个<code>Cache</code>是持久的，独立于浏览器缓存或网络状态。</p>
+<h4 id="提高应用程序-站点的性能"><a href="#提高应用程序-站点的性能" class="headerlink" title="提高应用程序/站点的性能"></a>提高应用程序/站点的性能</h4><p>缓存资源将使内容在大多数网络条件下加载更快。有关缓存策略的完整列表，请参阅 使用<a target="_blank" rel="noopener" href="https://developers.google.com/web/ilt/pwa/lab-caching-files-with-service-worker">Caching files with the service worker</a>和<a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/">The Offline Cookbook</a>。</p>
+<h4 id="让您的应用“离线优先”"><a href="#让您的应用“离线优先”" class="headerlink" title="让您的应用“离线优先”"></a>让您的应用“离线优先”</h4><p>使用<code>Service Worker</code>内部的<code>Fetch API</code>，我们可以拦截网络请求，然后使用所请求资源以外的内容修改响应。当用户离线时，我们可以使用此技术从缓存中提供资源。请参阅 使用<code>Service Worker</code>缓存文件以获得此技术的实际操作经验。</p>
+<h4 id="充当高级功能的基础"><a href="#充当高级功能的基础" class="headerlink" title="充当高级功能的基础"></a>充当高级功能的基础</h4><p><code>Service Worker</code>提供了使Web应用程序像本机应用程序一样工作的功能的起点。其中一些功能是：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Notifications_API">Notifications API</a>：使用操作系统的本机通知系统显示通知并与通信交互的方法。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Push_API">Push API</a>：一种API，可让您的应用订阅推送服务并接收推送消息。推送消息被传递给<code>Service Worker</code>，<code>Service Worker</code>可以使用消息中的信息来更新本地状态或向用户显示通知。由于<code>Service Worker</code>独立于主应用程序运行，因此即使浏览器未运行，他们也可以接收和显示通知。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developers.google.com/web/updates/2015/12/background-sync">Background Sync API</a>：允许您将操作推迟到用户具有稳定连接。这对于确保实际发送用户想要发送的内容非常有用。此API还允许服务器定期更新应用程序，以便应用程序可以在下次联机时进行更新</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/API/Channel_Messaging_API">Channel Messaging API</a>：允许Web工作者和<code>Service Worker</code>相互通信并与主机应用程序通信。此API的示例包括新内容通知和需要用户交互的更新。</p>
+</li>
+</ul>
+<h3 id="Service-Worker生命周期"><a href="#Service-Worker生命周期" class="headerlink" title="Service Worker生命周期"></a>Service Worker生命周期</h3><p><code>Service Worker</code>在其生命周期中经历三个步骤：</p>
+<ul>
+<li>注册</li>
+<li>安装</li>
+<li>激活</li>
+</ul>
+<h4 id="注册和作用域"><a href="#注册和作用域" class="headerlink" title="注册和作用域"></a>注册和作用域</h4><p>要安装<code>Service Worker</code>，您需要在主JavaScript代码中注册它。注册会告诉浏览器您的<code>Service Worker</code>所在的位置，并开始在后台安装它。我们来看一个例子：</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;serviceWorker&#x27;</span> in navigator) &#123;</span><br><span class="line">  navigator.serviceWorker.register(<span class="string">&#x27;/service-worker.js&#x27;</span>)</span><br><span class="line">  .<span class="keyword">then</span>(<span class="function"><span class="keyword">function</span><span class="params">(registration)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span>(<span class="string">&#x27;Registration successful, scope is:&#x27;</span>, registration.scope);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="keyword">catch</span>(<span class="function"><span class="keyword">function</span><span class="params">(error)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span>(<span class="string">&#x27;Service worker registration failed, error:&#x27;</span>, <span class="built_in">error</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此代码首先检查浏览器支持<code>navigator.serviceWorker</code>。然后向<code>Service Worker</code>注册，<code>navigator.serviceWorker.register</code>返回在<code>Service Worker</code>成功注册时解析的<code>promise</code>，然后用记录<code>registration.scope</code>。</p>
+<p><code>scope</code>是确定哪些<code>Service Worker</code>控制的，换句话说，从该路径的<code>Service Worker</code>将拦截请求。默认范围是<code>Service Worker</code>文件的位置，并扩展到下面的所有目录。因此，如果<code>service-worker.js</code>位于根目录中，则<code>Service Worker</code>将控制来自此域的所有文件的请求。</p>
+<p>您还可以通过在注册时传入其他参数来设置任意范围。例如：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">navigator.serviceWorker.register(&#x27;/service-worker.js&#x27;, &#123;</span><br><span class="line">  scope: &#x27;/app/&#x27;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，我们设置<code>Service Worker</code>的作用域到<code>/app/</code>，这意味着<code>Service Worker</code>作用域包括<code>/app/</code>，<code>/app/lower/</code>以及<code>/app/lower/lower</code>等，但不包括<code>/app</code>或者<code>/</code>，以及其他上一级的路径。</p>
+<p>如果已安装<code>Service Worker</code>，则<code>navigator.serviceWorker.register</code>返回当前<code>Service Worker</code>的注册对象。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>一旦浏览器注册了<code>Service Worker</code>，就可以尝试安装。如果浏览器认为<code>Service Worker</code>是新用户，则会安装<code>Service Worker</code>，原因是该站点当前没有已注册的<code>Service Worker</code>，或者因为新<code>Service Worker</code>与之前安装的<code>Service Worker</code>之间存在字节差异。</p>
+<p><code>Service Worker</code>安装会在安装过程中触发事件。我们可以在<code>Service Worker</code>安装过程中包含一个事件监听器，以便在安装<code>Service Worker</code>时执行某些任务。例如，在安装过程中，<code>Service Worker</code>可以预先缓存Web应用程序的某些部分，以便在用户下次打开它时立即加载。因此，在第一次加载之后，您将从即时重复加载中受益，并且在这些情况下，您的交互时间将变得更好。安装事件侦听器的示例如下所示：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">Listen</span> <span class="keyword">for</span> install event, <span class="keyword">set</span> callback</span><br><span class="line">self.addEventListener(<span class="string">&#x27;install&#x27;</span>, <span class="keyword">function</span>(event) &#123;</span><br><span class="line">    // <span class="keyword">Perform</span> <span class="keyword">some</span> task</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h4><p>一旦<code>Service Worker</code>成功安装，它就会转换到激活阶段。如果存在由前一个<code>Service Worker</code>控制的任何打开页面，则新<code>Service Worker</code>进入waiting状态。新<code>Service Worker</code>仅在不再加载仍在使用旧<code>Service Worker</code>的任何页面时激活。这可确保在任何给定时间只运行一个版本的<code>Service Worker</code>。</p>
+<blockquote>
+<p>注意：仅刷新页面不足以将控制权转移给新的<code>Service Worker</code>，因为在卸载当前页面之前将请求新页面，并且不会有旧<code>Service Worker</code>未使用的时间。<br>当新<code>Service Worker</code>激活时，将激活的<code>Service Worker</code>中触发事件<code>activate</code>。此事件侦听器是清理过时缓存的好地方</p>
+</blockquote>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(<span class="string">&#x27;activate&#x27;</span>, <span class="keyword">function</span>(event) &#123;</span><br><span class="line">  // <span class="keyword">Perform</span> <span class="keyword">some</span> task</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>激活后，<code>Service Worker</code>将控制在其作用域内加载的所有页面，并开始侦听来自这些页面的事件。但是，在<code>Service Worker</code>激活之前加载的页面不在<code>Service Worker</code>控制之下。新<code>Service Worker</code>只会在您关闭并重新打开应用程序或执行 <code>clients.claim()</code>时接管。在此之前，新<code>Service Worker</code>不会截获此页面的请求。这是有意识的，以确保您的网站的一致性。</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFService-Worker"><span class="toc-text">什么是Service Worker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service-Worker%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88"><span class="toc-text">Service Worker能做什么</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E9%AB%98%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F-%E7%AB%99%E7%82%B9%E7%9A%84%E6%80%A7%E8%83%BD"><span class="toc-text">提高应用程序&#x2F;站点的性能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A9%E6%82%A8%E7%9A%84%E5%BA%94%E7%94%A8%E2%80%9C%E7%A6%BB%E7%BA%BF%E4%BC%98%E5%85%88%E2%80%9D"><span class="toc-text">让您的应用“离线优先”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%85%E5%BD%93%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD%E7%9A%84%E5%9F%BA%E7%A1%80"><span class="toc-text">充当高级功能的基础</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service-Worker%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">Service Worker生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">注册和作用域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB"><span class="toc-text">激活</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yunzaifei.github.io/2018/08/12/PWA实战（2）—Service-Wroker/">http://yunzaifei.github.io/2018/08/12/PWA实战（2）—Service-Wroker/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PWA/" rel="tag">PWA</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2018/07/02/PWA%E5%AE%9E%E6%88%98%EF%BC%881%EF%BC%89%E2%80%94%E6%A6%82%E8%BF%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          PWA实战（1）—概述
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          PWA实战（3）—Manifest
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+  <div id="comments"><div id="disqus_thread"></div></div>
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Docker常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/03/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8CDocker%E5%AE%89%E8%A3%85/">服务器设置和Docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/">gitea的docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/">Nodejs项目配置Typescript,Eslint,prettier等</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/05/Docker%E5%85%A5%E9%97%A8/">Docker入门</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/gitea/" style="font-size: 10px;">gitea</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mongodb/" style="font-size: 13.33px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/widnows/" style="font-size: 13.33px;">widnows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/" rel="tag">eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitea/" rel="tag">gitea</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/" rel="tag">prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://yunzaifei.com/">yunzaifei</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://zhaowenbo.com/">wenbo</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2025 yunzaifei.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+    <script>
+      var disqus_shortname = 'yunzaifei';
+      
+        var disqus_url = 'http://yunzaifei.github.io/2018/08/12/PWA%E5%AE%9E%E6%88%98%EF%BC%882%EF%BC%89%E2%80%94Service-Wroker/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

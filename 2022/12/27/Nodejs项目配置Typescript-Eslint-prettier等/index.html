@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Nodejs项目配置Typescript,Eslint,prettier等 | 云在飞的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="云在飞的技术博客，分享最新的IT技术和互联网热点内容">
+  
+  
+    <meta name="keywords" content="云在飞, 技术">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="云在飞的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">云在飞的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">如果你惟一的工具是一把锤子，你往往会把一切问题看成钉子</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Nodejs项目配置Typescript-Eslint-prettier等" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Nodejs项目配置Typescript,Eslint,prettier等
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2022-12-27T06:21:02.000Z" itemprop="datePublished">2022年12月27日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/#comments" class="article-comment-link">
+  
+    
+    
+      <i class="disqus-comment-count" data-disqus-identifier="/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/"></i>
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>现代化的工程项目搭建，已经不仅仅满足于可以用了，更多要求规范使用。为实现这已目的，项目搭建离不开Typescript、Eslint、prettier的配置。</p>
+<h3 id="Nodejs项目搭建"><a href="#Nodejs项目搭建" class="headerlink" title="Nodejs项目搭建"></a>Nodejs项目搭建</h3><p>执行<code>npm init -y</code>命令生产<code>package.json</code>文件</p>
+<h3 id="Typescript"><a href="#Typescript" class="headerlink" title="Typescript"></a>Typescript</h3><ul>
+<li>安装<code>typescript</code><br>执行命令 <code>npm install typescript --save-dev</code></li>
+<li>安装<code>@types/node</code><br>执行命令 <code>npm install @types/node --save-dev</code></li>
+<li>生成<code>tsconfig.json</code>文件<br>执行命令 <code>npx tsc --init</code>，常见配置见<a target="_blank" rel="noopener" href="https://www.typescriptlang.org/zh/docs/handbook/tsconfig-json.html">tsconfig配置</a><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;compilerOptions&quot;</span>: &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="string">&quot;rootDir&quot;</span>: <span class="string">&quot;./src&quot;</span>,       <span class="regexp">//</span> 读取ts文件根目录</span><br><span class="line">    <span class="string">&quot;outDir&quot;</span>: <span class="string">&quot;./dist&quot;</span>,       <span class="regexp">//</span> 生成js文件路径</span><br><span class="line">    <span class="string">&quot;removeComments&quot;</span>: true,   <span class="regexp">//</span> 生成js文件时移除注释</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="string">&quot;include&quot;</span>: [<span class="string">&quot;src&quot;</span>],</span><br><span class="line">  <span class="string">&quot;exclude&quot;</span>: [<span class="string">&quot;node_modules&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>安装<code>ts-node</code><br>执行命令 <code>npm install ts-node --save-dev</code>, <a target="_blank" rel="noopener" href="https://typestrong.org/ts-node/">ts-node</a>可以运行时解析<code>ts</code>文件，无需转换成js运行。</li>
+<li>配置<code>nodemon</code><br>新建<code>nodemon.json</code>文件<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;watch&quot;</span>: [<span class="string">&quot;src&quot;</span>],</span><br><span class="line">  <span class="string">&quot;ext&quot;</span>: <span class="string">&quot;.ts,.js&quot;</span>,</span><br><span class="line">  <span class="string">&quot;ignore&quot;</span>: [],</span><br><span class="line">  <span class="string">&quot;exec&quot;</span>: <span class="string">&quot;ts-node ./src/index.ts&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<code>package.json</code>中配置<code>scripts</code>命令<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;<span class="keyword">build</span><span class="string">&quot;: &quot;</span>tsc<span class="string">&quot;,</span></span><br><span class="line"><span class="string">&quot;</span>prestart<span class="string">&quot;: &quot;</span>npm run <span class="keyword">build</span><span class="string">&quot;,</span></span><br><span class="line"><span class="string">&quot;</span><span class="keyword">start</span><span class="string">&quot;: &quot;</span>node ./dist/<span class="keyword">index</span>.js<span class="string">&quot;,</span></span><br><span class="line"><span class="string">&quot;</span><span class="keyword">start</span>:dev<span class="string">&quot;: &quot;</span>nodemon<span class="string">&quot;,</span></span><br><span class="line"><span class="string">&quot;</span>lint<span class="string">&quot;: &quot;</span>eslint . --ext .js,.ts<span class="string">&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Eslint"><a href="#Eslint" class="headerlink" title="Eslint"></a>Eslint</h3><ul>
+<li>初始化<code>Eslint</code><br>执行命令 <code>npx eslint --init</code>，然后根据自己需求选择配置</li>
+<li>配置<code>.eslintrc.js</code>文件<br><code>.eslintrc.js</code>文件是配置文件，如果某些想忽略，可以新建文件<code>.eslintignor</code>，写入想要忽略的文件路径</li>
+</ul>
+<h3 id="prettier"><a href="#prettier" class="headerlink" title="prettier"></a>prettier</h3><ul>
+<li>安装依赖<br>执行命令<code>npm install eslint-config-prettier eslint-plugin-prettier --save-dev</code>安装 <a target="_blank" rel="noopener" href="https://github.com/prettier/eslint-config-prettier#readme">eslint-config-prettier</a>、<a target="_blank" rel="noopener" href="https://github.com/prettier/eslint-plugin-prettier#readme">eslint-plugin-prettier</a>即可</li>
+<li>修改<code>.eslintrc.js</code>文件<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extends: [..., <span class="string">&#x27;plugin:prettier/recommended&#x27;</span>],</span><br><span class="line">overrides: [],</span><br><span class="line">parserOptions: &#123;</span><br><span class="line">  ecmaVersion: <span class="string">&#x27;latest&#x27;</span>,</span><br><span class="line">  sourceType: <span class="string">&#x27;module&#x27;</span>,</span><br><span class="line">  project: <span class="string">&#x27;./tsconfig.json&#x27;</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></li>
+<li>常见<code>prettier</code>配置<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  // <span class="number">1.</span>一行代码的最大字符数，默认是<span class="number">80</span>(printWidth: &lt;<span class="type">int</span>&gt;)</span><br><span class="line">  printWidth: <span class="number">80</span>,</span><br><span class="line">  // <span class="number">2.</span>tab宽度为<span class="number">2</span>空格(tabWidth: &lt;<span class="type">int</span>&gt;)</span><br><span class="line">  tabWidth: <span class="number">2</span>,</span><br><span class="line">  // <span class="number">3.</span>是否使用tab来缩进，我们使用空格(useTabs: &lt;<span class="type">bool</span>&gt;)</span><br><span class="line">  useTabs: <span class="keyword">false</span>,</span><br><span class="line">  // <span class="number">4.</span>结尾是否添加分号，<span class="keyword">false</span>的情况下只会在一些导致ASI错误的其工况下在开头加分号，我选择无分号结尾的风格(semi: &lt;<span class="type">bool</span>&gt;)</span><br><span class="line">  semi: <span class="keyword">false</span>,</span><br><span class="line">  // <span class="number">5.</span>使用单引号(singleQuote: &lt;<span class="type">bool</span>&gt;)</span><br><span class="line">  singleQuote: <span class="keyword">true</span>,</span><br><span class="line">  // <span class="number">6.</span><span class="keyword">object</span>对象中key值是否加引号（quoteProps: &quot;&lt;as-needed|consistent|preserve&gt;&quot;）<span class="keyword">as</span>-needed只有在需求要的情况下加引号，consistent是有一个需要引号就统一加，preserve是保留用户输入的引号</span><br><span class="line">  quoteProps: <span class="string">&#x27;as-needed&#x27;</span>,</span><br><span class="line">  // <span class="number">7.</span>在jsx文件中的引号需要单独设置（jsxSingleQuote: &lt;<span class="type">bool</span>&gt;）</span><br><span class="line">  jsxSingleQuote: <span class="keyword">false</span>,</span><br><span class="line">  // <span class="number">8.</span>尾部逗号设置，es5是尾部逗号兼容es5，<span class="keyword">none</span>就是没有尾部逗号，<span class="keyword">all</span>是指所有可能的情况，需要node8和es2017以上的环境。（trailingComma: &quot;&lt;es5|none|all&gt;&quot;）</span><br><span class="line">  trailingComma: <span class="string">&#x27;es5&#x27;</span>,</span><br><span class="line">  // <span class="number">9.</span><span class="keyword">object</span>对象里面的key和<span class="keyword">value</span>值和括号间的空格(bracketSpacing: &lt;<span class="type">bool</span>&gt;)</span><br><span class="line">  bracketSpacing: <span class="keyword">true</span>,</span><br><span class="line">  // <span class="number">10.</span>jsx标签多行属性写法时，尖括号是否另起一行(jsxBracketSameLine: &lt;<span class="type">bool</span>&gt;)</span><br><span class="line">  jsxBracketSameLine: <span class="keyword">false</span>,</span><br><span class="line">  // <span class="number">11.</span>箭头函数单个参数的情况是否省略括号，默认<span class="keyword">always</span>是总是带括号（arrowParens: &quot;&lt;always|avoid&gt;&quot;）</span><br><span class="line">  arrowParens: <span class="string">&#x27;always&#x27;</span>,</span><br><span class="line">  // <span class="number">12.</span>range是<span class="keyword">format</span>执行的范围，可以选执行一个文件的一部分，默认的设置是整个文件（range<span class="keyword">Start</span>: &lt;<span class="type">int</span>&gt;  range<span class="keyword">End</span>: &lt;<span class="type">int</span>&gt;）</span><br><span class="line">  range<span class="keyword">Start</span>: <span class="number">0</span>,</span><br><span class="line">  range<span class="keyword">End</span>: <span class="keyword">Infinity</span>,</span><br><span class="line">  // <span class="number">18.</span> vue script和style标签中是否缩进,开启可能会破坏编辑器的代码折叠</span><br><span class="line">  vueIndentScriptAndStyle: <span class="keyword">false</span>,</span><br><span class="line">  // <span class="number">19.</span>    endOfLine: &quot;&lt;lf|crlf|cr|auto&gt;&quot; 行尾换行符,默认是lf,</span><br><span class="line">  endOfLine: <span class="string">&#x27;lf&#x27;</span>,</span><br><span class="line">  // <span class="number">20.</span>embeddedLanguageFormatting: &quot;off&quot;,默认是auto,控制被引号包裹的代码是否进行格式化</span><br><span class="line">  embeddedLanguageFormatting: <span class="string">&#x27;off&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="文档资料"><a href="#文档资料" class="headerlink" title="文档资料"></a>文档资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.typescriptlang.org/zh/">Typescript</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh-hans.eslint.org/">Eslint</a></li>
+<li><a target="_blank" rel="noopener" href="https://prettier.io/docs/en/index.html">Prettier</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/remy/nodemon/#readme">nodemon</a></li>
+</ul>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nodejs%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA"><span class="toc-text">Nodejs项目搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Typescript"><span class="toc-text">Typescript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Eslint"><span class="toc-text">Eslint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#prettier"><span class="toc-text">prettier</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E8%B5%84%E6%96%99"><span class="toc-text">文档资料</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yunzaifei.github.io/2022/12/27/Nodejs项目配置Typescript-Eslint-prettier等/">http://yunzaifei.github.io/2022/12/27/Nodejs项目配置Typescript-Eslint-prettier等/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/eslint/" rel="tag">eslint</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/prettier/" rel="tag">prettier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2022/05/05/Docker%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          Docker入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          gitea的docker安装
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+  <div id="comments"><div id="disqus_thread"></div></div>
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Docker常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/03/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8CDocker%E5%AE%89%E8%A3%85/">服务器设置和Docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/">gitea的docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/">Nodejs项目配置Typescript,Eslint,prettier等</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/05/Docker%E5%85%A5%E9%97%A8/">Docker入门</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/gitea/" style="font-size: 10px;">gitea</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mongodb/" style="font-size: 13.33px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/widnows/" style="font-size: 13.33px;">widnows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/" rel="tag">eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitea/" rel="tag">gitea</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/" rel="tag">prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://yunzaifei.com/">yunzaifei</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://zhaowenbo.com/">wenbo</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2025 yunzaifei.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+    <script>
+      var disqus_shortname = 'yunzaifei';
+      
+        var disqus_url = 'http://yunzaifei.github.io/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

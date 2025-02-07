@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>PWA实战（3）—Manifest | 云在飞的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="云在飞的技术博客，分享最新的IT技术和互联网热点内容">
+  
+  
+    <meta name="keywords" content="云在飞, 技术">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="云在飞的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">云在飞的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">如果你惟一的工具是一把锤子，你往往会把一切问题看成钉子</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-PWA实战（3）—Manifest" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      PWA实战（3）—Manifest
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-08-23T02:03:46.000Z" itemprop="datePublished">2018年08月23日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/PWA/">PWA</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/#comments" class="article-comment-link">
+  
+    
+    
+      <i class="disqus-comment-count" data-disqus-identifier="/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/"></i>
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><code>Manifest</code>是一个 JSON 文件，您（即开发者）可以利用它控制在用户想要看到应用的区域（例如移动设备主屏幕）中如何向用户显示网络应用或网站，指示用户可以启动哪些功能，以及定义其在启动时的外观。</p>
+<p><code>Manifest</code>提供了将网站书签保存到设备主屏幕的功能。当网站以这种方式启动时：</p>
+<ul>
+<li>它具有唯一的图标和名称，以便用户将其与其他网站区分开来。</li>
+<li>它会在下载资源或从缓存恢复资源时向用户显示某些信息。</li>
+<li>它会向浏览器提供默认显示特性，以避免网站资源可用时的过渡过于生硬。</li>
+</ul>
+<p>它通过一个文本文件中的元数据这一简单机制完成所有这些工作。实现：</p>
+<ul>
+<li>创建清单并将其链接到您的页面，这是非常简单的过程。</li>
+<li>控制用户从主屏幕启动时看到的内容。</li>
+<li>这包括启动画面、主题颜色以及打开的网址等。</li>
+</ul>
+<h3 id="创建清单"><a href="#创建清单" class="headerlink" title="创建清单"></a>创建清单</h3><p>在对网络应用清单做详细探究之前，让我们先创建一个基本清单，然后为其链接一个网页。</p>
+<p>不管您要什么，都可以调用清单。大多数人使用<code>manifest.json</code>。下面是一个示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;short_name&quot;</span>: <span class="string">&quot;AirHorner&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Kinlan&#x27;s AirHorner of Infamy&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;icons&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;src&quot;</span>: <span class="string">&quot;launcher-icon-1x.png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;sizes&quot;</span>: <span class="string">&quot;48x48&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;src&quot;</span>: <span class="string">&quot;launcher-icon-2x.png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;sizes&quot;</span>: <span class="string">&quot;96x96&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;src&quot;</span>: <span class="string">&quot;launcher-icon-4x.png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;sizes&quot;</span>: <span class="string">&quot;192x192&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;start_url&quot;</span>: <span class="string">&quot;index.html?launcher=true&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>确保包括以下内容：</p>
+<ul>
+<li>在用户主屏幕上用作文本的<code>short_name</code>。</li>
+<li>在网络应用安装横幅中使用的<code>name</code>。</li>
+</ul>
+<h3 id="将清单的相关信息告知浏览器"><a href="#将清单的相关信息告知浏览器" class="headerlink" title="将清单的相关信息告知浏览器"></a>将清单的相关信息告知浏览器</h3><p>在您创建清单且将清单添加到您的网站之后，将<code>link</code>标记添加到包含网络应用的所有页面上，如下所示：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;manifest&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;/manifest.json&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置启动网址"><a href="#设置启动网址" class="headerlink" title="设置启动网址"></a>设置启动网址</h3><p>如果您不提供<code>start_url</code>，则将使用当前页面，这不太可能是您的用户想要的内容。 但这并不是将它包括在内的唯一原因。 由于您现在可以定义应用的启动方式，因此可向<code>start_url</code>添加一个查询字符串参数来说明其启动方式。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;start_url&quot;</span>: <span class="string">&quot;/?utm_source=homescreen&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这可以是您希望的任何内容；我们要使用的值的优点是对网站统计十分有意义。</p>
+<h3 id="自定义图标"><a href="#自定义图标" class="headerlink" title="自定义图标"></a>自定义图标</h3><p>当用户将您的网站添加到其主屏幕时，您可以定义一组供浏览器使用的图标。您可以通过类型和大小定义它们，如下所示：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&quot;icons&quot;: [&#123;</span><br><span class="line">    <span class="string">&quot;src&quot;</span>: <span class="string">&quot;images/touch/icon-128x128.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sizes&quot;</span>: <span class="string">&quot;128x128&quot;</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;<span class="attribute">src</span>&quot;: <span class="string">&quot;images/touch/apple-touch-icon.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sizes&quot;</span>: <span class="string">&quot;152x152&quot;</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;<span class="attribute">src</span>&quot;: <span class="string">&quot;images/touch/ms-touch-icon-144x144-precomposed.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sizes&quot;</span>: <span class="string">&quot;144x144&quot;</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    &quot;<span class="attribute">src</span>&quot;: <span class="string">&quot;images/touch/chrome-touch-icon-192x192.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;image/png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sizes&quot;</span>: <span class="string">&quot;192x192&quot;</span></span><br><span class="line">  &#125;],</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加启动画面"><a href="#添加启动画面" class="headerlink" title="添加启动画面"></a>添加启动画面</h3><p>当您从主屏幕启动网络应用时，幕后执行了若干操作：</p>
+<ol>
+<li>Chrome 启动。</li>
+<li>显示页面的渲染器启动。</li>
+<li>您的网站从网络（如果网站有服务工作线程，则从缓存）加载。</li>
+</ol>
+<p>执行以上操作时，屏幕显示为白色并且看似已经停滞。如果您从网络加载网页时页面需要花费不止一两秒的时间才能让首页显现任何内容，这种情况将变得尤为明显。</p>
+<p>为提供更优质的用户体验，您可以用标题、颜色和图像来替换白色屏幕。</p>
+<h4 id="设置图像和标题"><a href="#设置图像和标题" class="headerlink" title="设置图像和标题"></a>设置图像和标题</h4><p>如果您从未落下课程进度，您已应完成了图像和标题的设置。Chrome 会根据清单的特定成员推断图像和标题。此处的要点是了解详情。</p>
+<p>启动画面图像提取自<code>icons</code>数组。Chrome 为设备选择最接近 128dp 的图像。标题是直接从<code>name</code>成员获取的。</p>
+<h4 id="设置背景颜色"><a href="#设置背景颜色" class="headerlink" title="设置背景颜色"></a>设置背景颜色</h4><p>利用适当命名的<code>background_color</code>属性指定背景颜色。 Chrome 在网络应用启动后会立即使用此颜色，这一颜色将保留在屏幕上，直至网络应用首次呈现为止。</p>
+<p>要设置背景颜色，请在您的清单中设置下列内容：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;background_color&quot;</span>: <span class="string">&quot;#2196F3&quot;</span>,</span><br></pre></td></tr></table></figure>
+<p>现在，从主屏幕启动您的网站时将不会呈现白色屏幕。</p>
+<p>该属性的建议适用值是加载页面的背景颜色。使用与加载页面相同的颜色可实现从启动画面到首页的平稳过渡。</p>
+<h4 id="设置主题颜色"><a href="#设置主题颜色" class="headerlink" title="设置主题颜色"></a>设置主题颜色</h4><p>使用<code>theme_color</code>属性指定主题颜色。该属性设置工具栏的颜色。 对此，我们还建议复制某种现有颜色，具体地讲就是<code>theme-color &lt;meta&gt;</code>。</p>
+<h3 id="设置启动样式"><a href="#设置启动样式" class="headerlink" title="设置启动样式"></a>设置启动样式</h3><p>利用网络应用清单来控制显示类型和页面方向。</p>
+<h4 id="自定义显示类型"><a href="#自定义显示类型" class="headerlink" title="自定义显示类型"></a>自定义显示类型</h4><p>您可以通过将<code>display</code>类型设置为<code>standalone</code>，让您的网络应用隐藏浏览器的UI：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;display&quot;</span>: <span class="string">&quot;standalone&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如果您认为用户喜欢在浏览器中像正常网站一样查看您的网页，您可以将<code>display</code>类型设置为<code>browser</code>：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;display&quot;</span>: <span class="string">&quot;browser&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="指定页面的初始方向"><a href="#指定页面的初始方向" class="headerlink" title="指定页面的初始方向"></a>指定页面的初始方向</h4><p>您可以强制一个特定方向，这对于某些应用很有用，例如只能在一个方向上运行的游戏。 请有选择地使用。 用户更愿意能够自行选择方向。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;orientation&quot;</span>: <span class="string">&quot;landscape&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="提供全站主题颜色"><a href="#提供全站主题颜色" class="headerlink" title="提供全站主题颜色"></a>提供全站主题颜色</h3><p>Chrome 在 2014 年为您的网站引入了主题颜色这一概念。主题颜色是来自您的网页的提示，用于告知浏览器使用什么颜色来为地址栏等 UI 元素着色。</p>
+<p>如果没有清单，您需要在每个页面上定义主题颜色，并且如果您拥有的是大型网站或旧版网站，进行大量全站更改并不可行。<br>向您的清单添加<code>theme_color</code>属性后，从主屏幕启动网站时，网域中的每个页面都将自动获得主题颜色。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;theme_color&quot;</span>: <span class="string">&quot;#2196F3&quot;</span></span><br></pre></td></tr></table></figure>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%B8%85%E5%8D%95"><span class="toc-text">创建清单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E6%B8%85%E5%8D%95%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%91%8A%E7%9F%A5%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="toc-text">将清单的相关信息告知浏览器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%90%AF%E5%8A%A8%E7%BD%91%E5%9D%80"><span class="toc-text">设置启动网址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E6%A0%87"><span class="toc-text">自定义图标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%90%AF%E5%8A%A8%E7%94%BB%E9%9D%A2"><span class="toc-text">添加启动画面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9B%BE%E5%83%8F%E5%92%8C%E6%A0%87%E9%A2%98"><span class="toc-text">设置图像和标题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%83%8C%E6%99%AF%E9%A2%9C%E8%89%B2"><span class="toc-text">设置背景颜色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BB%E9%A2%98%E9%A2%9C%E8%89%B2"><span class="toc-text">设置主题颜色</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%90%AF%E5%8A%A8%E6%A0%B7%E5%BC%8F"><span class="toc-text">设置启动样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%98%BE%E7%A4%BA%E7%B1%BB%E5%9E%8B"><span class="toc-text">自定义显示类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%88%9D%E5%A7%8B%E6%96%B9%E5%90%91"><span class="toc-text">指定页面的初始方向</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BE%9B%E5%85%A8%E7%AB%99%E4%B8%BB%E9%A2%98%E9%A2%9C%E8%89%B2"><span class="toc-text">提供全站主题颜色</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yunzaifei.github.io/2018/08/23/PWA实战（3）—Manifest/">http://yunzaifei.github.io/2018/08/23/PWA实战（3）—Manifest/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PWA/" rel="tag">PWA</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2018/08/12/PWA%E5%AE%9E%E6%88%98%EF%BC%882%EF%BC%89%E2%80%94Service-Wroker/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          PWA实战（2）—Service Wroker
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/12/PWA%E5%AE%9E%E6%88%98%EF%BC%884%EF%BC%89%E2%80%94Notification/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          PWA实战（4）—Notification
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+  <div id="comments"><div id="disqus_thread"></div></div>
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Docker常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/03/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8CDocker%E5%AE%89%E8%A3%85/">服务器设置和Docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/">gitea的docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/">Nodejs项目配置Typescript,Eslint,prettier等</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/05/Docker%E5%85%A5%E9%97%A8/">Docker入门</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/gitea/" style="font-size: 10px;">gitea</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mongodb/" style="font-size: 13.33px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/widnows/" style="font-size: 13.33px;">widnows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/" rel="tag">eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitea/" rel="tag">gitea</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/" rel="tag">prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://yunzaifei.com/">yunzaifei</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://zhaowenbo.com/">wenbo</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2025 yunzaifei.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+    <script>
+      var disqus_shortname = 'yunzaifei';
+      
+        var disqus_url = 'http://yunzaifei.github.io/2018/08/23/PWA%E5%AE%9E%E6%88%98%EF%BC%883%EF%BC%89%E2%80%94Manifest/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

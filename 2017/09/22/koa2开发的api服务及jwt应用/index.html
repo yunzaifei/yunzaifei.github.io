@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>koa2开发的api服务及jwt应用 | 云在飞的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="云在飞的技术博客，分享最新的IT技术和互联网热点内容">
+  
+  
+    <meta name="keywords" content="云在飞, 技术">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="云在飞的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">云在飞的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">如果你惟一的工具是一把锤子，你往往会把一切问题看成钉子</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-koa2开发的api服务及jwt应用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      koa2开发的api服务及jwt应用
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2017-09-22T00:56:56.000Z" itemprop="datePublished">2017年09月22日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2017/09/22/koa2%E5%BC%80%E5%8F%91%E7%9A%84api%E6%9C%8D%E5%8A%A1%E5%8F%8Ajwt%E5%BA%94%E7%94%A8/#comments" class="article-comment-link">
+  
+    
+    
+      <i class="disqus-comment-count" data-disqus-identifier="/2017/09/22/koa2%E5%BC%80%E5%8F%91%E7%9A%84api%E6%9C%8D%E5%8A%A1%E5%8F%8Ajwt%E5%BA%94%E7%94%A8/"></i>
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>koa2开发的api服务示例，使用用jwt验证。</p>
+<p>github代码：<a target="_blank" rel="noopener" href="https://github.com/yunzaifei/koa2-jwt-demo">https://github.com/yunzaifei/koa2-jwt-demo</a></p>
+<h2 id="安装及部署"><a href="#安装及部署" class="headerlink" title="安装及部署"></a>安装及部署</h2><ul>
+<li>执行命令npm install</li>
+<li>执行命令npm start启动服务</li>
+<li>可以通过postman等工具对服务进行测试，或者通过npm run test命令使用网页页查看</li>
+</ul>
+<h2 id="涉及知识点"><a href="#涉及知识点" class="headerlink" title="涉及知识点"></a>涉及知识点</h2><ul>
+<li>koa2框架</li>
+<li>jwt原理及应用</li>
+<li>mongoose应用</li>
+<li>async/await的简单使用</li>
+</ul>
+<h2 id="知识点讲解"><a href="#知识点讲解" class="headerlink" title="知识点讲解"></a>知识点讲解</h2><h3 id="koa2框架"><a href="#koa2框架" class="headerlink" title="koa2框架"></a>koa2框架</h3><p>koa就是一种简单好用的Web框架。它的特点是优雅、简洁、表达力强、自由度高。本身代码只有1000多行，所有功能都通过插件实现，很符合Unix哲学。</p>
+<p>koa官网 <a target="_blank" rel="noopener" href="http://koajs.com/">http://koajs.com/</a></p>
+<p>koa中文文档 <a target="_blank" rel="noopener" href="https://github.com/guo-yu/koa-guide">https://github.com/guo-yu/koa-guide</a></p>
+<p>koa2进阶学习笔记 <a target="_blank" rel="noopener" href="https://chenshenhai.github.io/koa2-note/">https://chenshenhai.github.io/koa2-note/</a></p>
+<h4 id="本示例中涉及的中间件"><a href="#本示例中涉及的中间件" class="headerlink" title="本示例中涉及的中间件"></a>本示例中涉及的中间件</h4><table>
+<thead>
+<tr>
+<th>中间件</th>
+<th>功能说明</th>
+<th>链接</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bcrypt</td>
+<td>加密</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/bcrypt"><img src="https://img.shields.io/npm/v/bcrypt.svg?style=flat-square" alt="NPM version"></a></td>
+<td>用于用户密码存入数据库时</td>
+</tr>
+<tr>
+<td>jsonwebtoken</td>
+<td>jwt实现</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/jsonwebtoken"><img src="https://img.shields.io/npm/v/jsonwebtoken.svg?style=flat-square" alt="NPM version"></a></td>
+<td></td>
+</tr>
+<tr>
+<td>kcors</td>
+<td>koa跨域</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/kcors"><img src="https://img.shields.io/npm/v/kcors.svg?style=flat-square" alt="NPM version"></a></td>
+<td></td>
+</tr>
+<tr>
+<td>koa</td>
+<td>koa框架</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/koa"><img src="https://img.shields.io/npm/v/koa.svg?style=flat-square" alt="NPM version"></a></td>
+<td></td>
+</tr>
+<tr>
+<td>koa-bodyparser</td>
+<td>数据解析到ctx.request.body中</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/koa-bodyparser"><img src="https://img.shields.io/npm/v/koa-bodyparser.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a target="_blank" rel="noopener" href="https://chenshenhai.github.io/koa2-note/note/request/post-use-middleware.html">详细</a></td>
+</tr>
+<tr>
+<td>koa-json</td>
+<td>response转换位json格式</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/koa-json"><img src="https://img.shields.io/npm/v/koa-json.svg?style=flat-square" alt="NPM version"></a></td>
+<td></td>
+</tr>
+<tr>
+<td>koa-jwt</td>
+<td>jwt自动校验</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/koa-jwt"><img src="https://img.shields.io/npm/v/koa-jwt.svg?style=flat-square" alt="NPM version"></a></td>
+<td>使用后不用在每个路由下手写校验方法</td>
+</tr>
+<tr>
+<td>koa-logger</td>
+<td>日志</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/koa-logger"><img src="https://img.shields.io/npm/v/koa-logger.svg?style=flat-square" alt="NPM version"></a></td>
+<td></td>
+</tr>
+<tr>
+<td>koa-router</td>
+<td>路由</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/koa-router"><img src="https://img.shields.io/npm/v/koa-router.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a target="_blank" rel="noopener" href="https://chenshenhai.github.io/koa2-note/note/route/koa-router.html">详细</a></td>
+</tr>
+<tr>
+<td>mongoose</td>
+<td>操作mongodb数据库</td>
+<td><a target="_blank" rel="noopener" href="https://npmjs.org/package/mongoose"><img src="https://img.shields.io/npm/v/mongoose.svg?style=flat-square" alt="NPM version"></a></td>
+<td><a target="_blank" rel="noopener" href="http://mongoosejs.com/docs/guide.html">文档</a></td>
+</tr>
+</tbody></table>
+<h4 id="代码结构说明"><a href="#代码结构说明" class="headerlink" title="代码结构说明"></a>代码结构说明</h4><p>本示例代码实现api服务，因为没有页面展示功能，所以没有使用<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/koa-static">koa-static</a>加载静态资源和创建views视图结构。 </p>
+<p>启动文件是app.js。</p>
+<p>route文件夹是路由服务。 </p>
+<p>config.js文件记录所有配置信息方便统一管理。</p>
+<h3 id="jwt原理及应用"><a href="#jwt原理及应用" class="headerlink" title="jwt原理及应用"></a>jwt原理及应用</h3><h4 id="jwt原理"><a href="#jwt原理" class="headerlink" title="jwt原理"></a>jwt原理</h4><p>JSON Web Token（JWT）是一个非常轻巧的规范。这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。一个JWT实际上就是一个字符串，它由三部分组成，头部、载荷与签名。注意，在JWT中，不应该在载荷里面加入任何敏感的数据。查看jwt信息：<a target="_blank" rel="noopener" href="https://jwt.io/">https://jwt.io/</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.leapoahead.com/2015/09/06/understanding-jwt/">jwt原理</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/xiekeli/p/5607107.html">基于Token的WEB后台认证机制</a></p>
+<h4 id="jwt应用"><a href="#jwt应用" class="headerlink" title="jwt应用"></a>jwt应用</h4><p>对于jwt的应用，本示例中主要用到jsonwebtoken<a target="_blank" rel="noopener" href="https://npmjs.org/package/jsonwebtoken"><img src="https://img.shields.io/npm/v/jsonwebtoken.svg?style=flat-square" alt="NPM version"></a>和koa-jwt<a target="_blank" rel="noopener" href="https://npmjs.org/package/koa-jwt"><img src="https://img.shields.io/npm/v/koa-jwt.svg?style=flat-square" alt="NPM version"></a>两个中间件。koa-jwt是对jsonwebtoken功能的封装，如果想更灵活的实现并且不怕麻烦，可以只使用jsonwebtoken中间件。</p>
+<p>jsonwebtoken用法</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jsonwebtoken在服务端生成token返回给客户端</span></span><br><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&#x27;jsonwebtoken&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> token = jwt.sign(&#123;</span><br><span class="line">    <span class="attribute">id:</span><span class="string"> user._id</span>,</span><br><span class="line">    <span class="attribute">secret</span>: user.app_secret</span><br><span class="line">&#125;, config.jwt_secret, &#123;<span class="attribute">expiresIn</span>: <span class="number">3600</span>&#125;)</span><br><span class="line">    </span><br><span class="line">ctx.body = &#123; </span><br><span class="line">  <span class="attribute">code</span>: <span class="number">200</span>, </span><br><span class="line">  <span class="attribute">message</span>: <span class="string">&#x27;登录成功!&#x27;</span>, </span><br><span class="line">  <span class="attribute">token</span>: token</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>koa-jwt用法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//koa-jwt在服务端校验从客户端提交的token值</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&#x27;koa-jwt&#x27;</span>)</span><br><span class="line">app.use(jwt(&#123;<span class="attr">secret</span>: config.jwt_secret&#125;).unless(&#123;<span class="attr">path</span>:[<span class="regexp">/^\/api\/login/</span>, <span class="regexp">/^\/api\/register/</span>]&#125;)) <span class="comment">//usless排除进行jwt校验的路由</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在路由中处理</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">&#x27;koa-router&#x27;</span>)()</span><br><span class="line">router.post(<span class="string">&#x27;/xxx&#x27;</span>, <span class="keyword">async</span> ctx =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> token = ctx.state.user</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;user_id:&#x27;</span>, token.id)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;user.app_secret:&#x27;</span>, token.secret)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="mongoose应用"><a href="#mongoose应用" class="headerlink" title="mongoose应用"></a>mongoose应用</h3><p>mongoose文档：<a target="_blank" rel="noopener" href="http://mongoosejs.com/docs/guide.html">http://mongoosejs.com/docs/guide.html</a></p>
+<p>mongoose中文文档：<a target="_blank" rel="noopener" href="https://mongoose.shujuwajue.com/">https://mongoose.shujuwajue.com/</a></p>
+<h3 id="async-await的简单使用"><a href="#async-await的简单使用" class="headerlink" title="async/await的简单使用"></a>async/await的简单使用</h3><p><a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/async">async 函数</a></p>
+<p><a target="_blank" rel="noopener" href="http://coolcao.com/2016/12/12/deeper-understanding-of-async-await/">深入理解ES7的async/await</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.lazycoffee.com/articles/view?id=58ab09eea072b332753d9774">Callback、Promise、Generator、async/await对比</a></p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2"><span class="toc-text">安装及部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text">涉及知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3"><span class="toc-text">知识点讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#koa2%E6%A1%86%E6%9E%B6"><span class="toc-text">koa2框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E7%A4%BA%E4%BE%8B%E4%B8%AD%E6%B6%89%E5%8F%8A%E7%9A%84%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-text">本示例中涉及的中间件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E"><span class="toc-text">代码结构说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jwt%E5%8E%9F%E7%90%86%E5%8F%8A%E5%BA%94%E7%94%A8"><span class="toc-text">jwt原理及应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt%E5%8E%9F%E7%90%86"><span class="toc-text">jwt原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt%E5%BA%94%E7%94%A8"><span class="toc-text">jwt应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mongoose%E5%BA%94%E7%94%A8"><span class="toc-text">mongoose应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#async-await%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-text">async&#x2F;await的简单使用</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yunzaifei.github.io/2017/09/22/koa2开发的api服务及jwt应用/">http://yunzaifei.github.io/2017/09/22/koa2开发的api服务及jwt应用/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jwt/" rel="tag">jwt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/koa/" rel="tag">koa</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2017/01/13/%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84Git%E6%9C%8D%E5%8A%A1%E5%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          搭建自己的Git服务器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/26/Web-API%E6%96%87%E6%A1%A3%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7apidoc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Web API文档生成工具apidoc
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+  <div id="comments"><div id="disqus_thread"></div></div>
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/01/03/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Docker常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/03/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8CDocker%E5%AE%89%E8%A3%85/">服务器设置和Docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/02/gitea%E7%9A%84docker%E5%AE%89%E8%A3%85/">gitea的docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/27/Nodejs%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AETypescript-Eslint-prettier%E7%AD%89/">Nodejs项目配置Typescript,Eslint,prettier等</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/05/Docker%E5%85%A5%E9%97%A8/">Docker入门</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/GraphQL/" style="font-size: 10px;">GraphQL</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nextjs/" style="font-size: 10px;">Nextjs</a> <a href="/tags/Nginx/" style="font-size: 13.33px;">Nginx</a> <a href="/tags/PWA/" style="font-size: 20px;">PWA</a> <a href="/tags/Redux/" style="font-size: 10px;">Redux</a> <a href="/tags/apidoc/" style="font-size: 10px;">apidoc</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/gitea/" style="font-size: 10px;">gitea</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mongodb/" style="font-size: 13.33px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/widnows/" style="font-size: 13.33px;">widnows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/GraphQL/">GraphQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nextjs/">Nextjs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PWA/">PWA</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Redux/">Redux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/api/">api</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016年</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/" rel="tag">GraphQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nextjs/" rel="tag">Nextjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/" rel="tag">PWA</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redux/" rel="tag">Redux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apidoc/" rel="tag">apidoc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/" rel="tag">eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitea/" rel="tag">gitea</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/" rel="tag">jwt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/" rel="tag">prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widnows/" rel="tag">widnows</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://yunzaifei.com/">yunzaifei</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://zhaowenbo.com/">wenbo</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2025 yunzaifei.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+
+  
+    <script>
+      var disqus_shortname = 'yunzaifei';
+      
+        var disqus_url = 'http://yunzaifei.github.io/2017/09/22/koa2%E5%BC%80%E5%8F%91%E7%9A%84api%E6%9C%8D%E5%8A%A1%E5%8F%8Ajwt%E5%BA%94%E7%94%A8/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>
